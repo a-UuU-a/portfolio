@@ -721,7 +721,7 @@ function WorkCard({ work }: { work: Work }) {
             <div className="relative">
             <div className="aspect-square rounded-lg overflow-hidden">
                 <GlitchImage
-                  src="/akira.jpeg"
+                  src="akira.jpeg"
                   alt="Profile photo"
                   className="object-cover"
                 />
