@@ -65,6 +65,14 @@ const domesticJournals: Publication[] = [
 
   const intlConferences: Publication[] = [
   {
+    title: "OrigamiWalls: A Shape-Changing Robotic Partitioning System for Diverse Spatial Reconfigurations",
+    authors:
+      "<strong><u>Akira Murakami</u></strong>, Kazuyuki Fujita, Yuki Onishi, and Yoshifumi Kitamura",
+    venue: "Proceedings of the 2026 Designing Interactive Systems Conference (DIS ’26), ACM, pp. 4559–4576, 2026",
+    year: 2026,
+    link: "https://doi.org/10.1145/3800645.3812904",
+  },
+  {
     title: "Mathematical Games of Dice - A Research Based Calculations Using Computer Algebra Systems",
     authors:
       "Ryohei Miyadera, <strong><u>Akira Murakami</u></strong>, Nazuki Terakawa, Keito Tanemura, Mao Fujino, Hisayoshi Sakahira, Masanori Fukui",
@@ -104,6 +112,17 @@ const domesticJournals: Publication[] = [
     venue: "JCDCG^3 2018, Manila, pp. 39-41, 2018",
     year: 2018,
     link: "https://drive.google.com/file/d/1RFaXEdKk5TUHc1QePWsdplOR7etRZOV1/view",
+  },
+];
+
+  const intlRefereedDemosPosters: Publication[] = [
+  {
+    title: "AmbiXR: Adaptive Visual Syntax for Resolving Ambiguous Instructions in LLM-Assisted XR Authoring",
+    authors:
+      "<strong><u>Akira Murakami</u></strong>, Kodai Hatakeyama, Ryo Ooka, Kazuyuki Fujita, Guanghan Zhao, and Yoshifumi Kitamura",
+    venue: "32nd ACM Symposium on Virtual Reality Software and Technology (VRST ’26), Sendai, Japan, November 16–18, 2026, ACM, 2 pages",
+    year: 2026,
+    link: "https://doi.org/10.1145/3822517.3849962",
   },
 ];
 
@@ -157,6 +176,16 @@ const domesticJournals: Publication[] = [
     venue: "ゲーム学会第18回全国大会，2019，大阪",
     year: 2019,
     link: "https://www.gameamusementsociety.org/staticpages/index.php?page=GAS_18th_program",
+  },
+];
+
+const otherWritings: Publication[] = [
+  {
+    title: "DIS 2026",
+    authors: "<strong><u>村上 聡</u></strong>",
+    venue: "日本バーチャルリアリティ学会 学会参加報告，2026年7月27日",
+    year: 2026,
+    link: "https://vrsj.org/report/13581/",
   },
 ];
 
@@ -824,9 +853,19 @@ function WorkCard({ work }: { work: Work }) {
         <PublicationList pubs={intlConferences} />
 
         <h3 className="text-xl font-light mb-6">
+          国際会議デモ・ポスター発表（査読あり）
+        </h3>
+        <PublicationList pubs={intlRefereedDemosPosters} />
+
+        <h3 className="text-xl font-light mb-6">
           国内会議デモ・ポスター発表，研究会・全国大会発表（査読なし）
         </h3>
         <PublicationList pubs={domesticConferences} />
+
+        <h3 className="text-xl font-light mb-6">
+          その他の執筆（学会参加報告など）
+        </h3>
+        <PublicationList pubs={otherWritings} />
       </div>
     </section>
 
@@ -849,6 +888,20 @@ function WorkCard({ work }: { work: Work }) {
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-thin tracking-wider mb-16 text-center">Awards</h2>
         <ul className="space-y-4 text-gray-600 font-light leading-relaxed list-disc list-outside pl-6">
+          <li>
+            経済産業省 未踏的な地方の若手人材発掘育成支援事業補助金AKATSUKIプロジェクト - MiTOHOKU Program 4期採択
+            <div>
+              <a
+                href="https://mitohoku.jp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://mitohoku.jp/
+              </a>
+            </div>
+          </li>
+
           <li>
             Interverse Virtual Reality Challenge (IVRC) 2025「豆|頁：なんかきられてももどるやつ」
             <ul className="list-disc list-inside ml-6">
