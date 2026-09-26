@@ -744,7 +744,7 @@ function WorkCard({ work }: { work: Work }) {
             <div className="space-y-6">
               <h3 className="text-2xl font-light tracking-wide">Akira MURAKAMI / 村上 聡</h3>
               <p className="text-gray-600 font-light leading-relaxed text-lg">
-                I am a master’s student at the ICD Lab, Tohoku University. I am interested in the intersection of Architecture and Human-Computer Interaction (HCI).
+                I am a doctoral student at the ICD Lab, Tohoku University. I am interested in the intersection of Architecture and Human-Computer Interaction (HCI).
               </p>
             </div>
             <div className="relative">
@@ -768,9 +768,18 @@ function WorkCard({ work }: { work: Work }) {
             <div className="border-l-2 border-gray-200 pl-8 pb-8">
               <div className="flex items-center space-x-2 mb-2">
                 <div className="w-3 h-3 bg-black rounded-full -ml-10 border-4 border-white"></div>
-                <span className="text-sm text-gray-500 font-light">October 2024 - Present</span>
+                <span className="text-sm text-gray-500 font-light">October 2026 - Current</span>
               </div>
-              <h3 className="text-xl font-light mb-2">Master of Infomation Science</h3>
+              <h3 className="text-xl font-light mb-2">Doctoral Program in Information Science</h3>
+              <p className="text-gray-600 font-light">東北大学大学院 情報科学研究科</p>
+              <p className="text-gray-500 text-sm mt-2 font-light">Advisor: Yoshifumi Kitamura, Kazuyuki Fujita</p>
+            </div>
+            <div className="border-l-2 border-gray-200 pl-8 pb-8">
+              <div className="flex items-center space-x-2 mb-2">
+                <div className="w-3 h-3 bg-gray-400 rounded-full -ml-10 border-4 border-white"></div>
+                <span className="text-sm text-gray-500 font-light">October 2024 - September 2026</span>
+              </div>
+              <h3 className="text-xl font-light mb-2">Master of Information Science</h3>
               <p className="text-gray-600 font-light">東北大学大学院 情報科学研究科</p>
               <p className="text-gray-500 text-sm mt-2 font-light">Advisor: Yoshifumi Kitamura, Kazuyuki Fujita</p>
             </div>
