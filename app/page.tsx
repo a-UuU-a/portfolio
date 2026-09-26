@@ -68,7 +68,7 @@ const domesticJournals: Publication[] = [
     title: "OrigamiWalls: A Shape-Changing Robotic Partitioning System for Diverse Spatial Reconfigurations",
     authors:
       "<strong><u>Akira Murakami</u></strong>, Kazuyuki Fujita, Yuki Onishi, and Yoshifumi Kitamura",
-    venue: "Proceedings of the 2026 Designing Interactive Systems Conference (DIS ’26), ACM, pp. 4559–4576, 2026",
+    venue: "Proceedings of the 2026 Designing Interactive Systems Conference (DIS ’26), Singapore, pp. 4559–4576, 2026",
     year: 2026,
     link: "https://doi.org/10.1145/3800645.3812904",
   },
@@ -694,16 +694,31 @@ function WorkCard({ work }: { work: Work }) {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100">
-            {navigationItems.map(({ id, label, icon: Icon }) => (
-              <button
-                key={id}
-                onClick={() => scrollToSection(id)}
-                className="w-full px-6 py-3 text-left flex items-center space-x-3 hover:bg-gray-50 transition-colors"
-              >
-                <Icon size={18} className="text-gray-400" />
-                <span className="font-light">{label}</span>
-              </button>
-            ))}
+            {navigationItems.map(({ id, label, icon: Icon, external }) =>
+              external ? (
+                <Link
+                  key={id}
+                  href={`/${id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full px-6 py-3 text-left flex items-center space-x-3 hover:bg-gray-50 transition-colors"
+                >
+                  <Icon size={18} className="text-gray-400" />
+                  <span className="font-light">{label}</span>
+                  <ExternalLinkIcon size={14} strokeWidth={1.5} className="text-gray-400" aria-hidden="true" />
+                </Link>
+              ) : (
+                <button
+                  key={id}
+                  onClick={() => scrollToSection(id)}
+                  className="w-full px-6 py-3 text-left flex items-center space-x-3 hover:bg-gray-50 transition-colors"
+                >
+                  <Icon size={18} className="text-gray-400" />
+                  <span className="font-light">{label}</span>
+                </button>
+              )
+            )}
           </div>
         )}
       </nav>
