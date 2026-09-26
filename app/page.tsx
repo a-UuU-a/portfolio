@@ -887,7 +887,7 @@ function WorkCard({ work }: { work: Work }) {
         <PublicationList pubs={domesticConferences} />
 
         <h3 className="text-xl font-light mb-6">
-          その他の執筆（学会参加報告など）
+          その他の執筆
         </h3>
         <PublicationList pubs={otherWritings} />
       </div>

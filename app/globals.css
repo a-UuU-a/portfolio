@@ -30,7 +30,28 @@ canvas {
   touch-action: none !important;
 }
 
+.road-atlas {
+  width: 800px;
+}
+
+.road-atlas-canvas {
+  height: 600px;
+}
+
+.road-atlas-canvas canvas {
+  display: block;
+  touch-action: pan-y !important;
+}
+
 @media (max-width: 768px) {
+  .road-atlas {
+    width: min(90vw, 400px);
+  }
+
+  .road-atlas-canvas {
+    height: min(50vh, 400px);
+  }
+
   .touch-none canvas {
     max-width: 90vw !important;
     height: auto !important;

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import { ChevronLeft } from "lucide-react";
+import RoadAtlas from "@/components/RoadAtlas";
 
 export const metadata = {
   title: "Blog",
@@ -27,7 +28,8 @@ export default function BlogPage() {
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 pt-32 pb-20">
-        <h1 className="text-3xl font-thin tracking-wider mb-16 text-center">Blog Posts</h1>
+
+        <RoadAtlas />
 
         <div className="space-y-12">
           {posts.map((post) => (
