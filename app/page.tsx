@@ -1050,6 +1050,9 @@ function WorkCard({ work }: { work: Work }) {
           <h2 className="text-3xl font-thin tracking-wider mb-16 text-center">Misc.</h2>
           <ul className="space-y-4 text-gray-600 font-light leading-relaxed list-disc list-outside pl-6">
             <li>
+              ACM VRST 2026 Student Volunteer
+            </li>
+            <li>
               市民公開講座 / 横浜市MICE次世代育成事業「CHI 2025 シンポジウム」学生委員
               <div>
                 <a
