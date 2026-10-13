@@ -30,6 +30,163 @@ canvas {
   touch-action: none !important;
 }
 
+.blog-article-page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.blog-walker-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.blog-walker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: auto;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  will-change: transform;
+}
+
+.blog-walker[data-mode="home"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.blog-walker:focus-visible {
+  outline: 1px dashed #171717;
+  outline-offset: 3px;
+}
+
+.blog-walker__body {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 70%;
+}
+
+.blog-walker[data-mode="dragging"] {
+  cursor: grabbing;
+}
+
+.blog-walker[data-mode="dragging"] .blog-walker__body {
+  transform: translateY(-8px) rotate(-12deg);
+}
+
+.blog-walker[data-mode="fallen"] .blog-walker__body {
+  transform: rotate(90deg);
+  animation: blog-walker-fall 240ms steps(3) both;
+}
+
+.blog-walker__facing {
+  width: 100%;
+  height: 100%;
+}
+
+.blog-walker__sprite {
+  display: block;
+  width: 48px;
+  height: 48px;
+  color: #000;
+}
+
+.blog-walker__pose {
+  display: none;
+}
+
+.blog-walker__view {
+  display: none;
+}
+
+.blog-walker[data-view="side"] .blog-walker__view--side,
+.blog-walker[data-view="front"] .blog-walker__view--front,
+.blog-walker[data-view="diagonal-down"] .blog-walker__view--diagonal-down,
+.blog-walker[data-view="diagonal-up"] .blog-walker__view--diagonal-up {
+  display: inline;
+}
+
+.blog-walker[data-step="rest"] .blog-walker__pose[data-step="rest"],
+.blog-walker[data-step="0"] .blog-walker__pose[data-step="0"],
+.blog-walker[data-step="1"] .blog-walker__pose[data-step="1"],
+.blog-walker[data-step="2"] .blog-walker__pose[data-step="2"],
+.blog-walker[data-step="3"] .blog-walker__pose[data-step="3"],
+.blog-walker[data-step="4"] .blog-walker__pose[data-step="4"],
+.blog-walker[data-step="5"] .blog-walker__pose[data-step="5"],
+.blog-walker[data-step="6"] .blog-walker__pose[data-step="6"],
+.blog-walker[data-step="7"] .blog-walker__pose[data-step="7"],
+.blog-walker[data-step="8"] .blog-walker__pose[data-step="8"],
+.blog-walker[data-step="9"] .blog-walker__pose[data-step="9"],
+.blog-walker[data-step="10"] .blog-walker__pose[data-step="10"],
+.blog-walker[data-step="11"] .blog-walker__pose[data-step="11"] {
+  display: inline;
+}
+
+.blog-walker-home {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 41;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 8px;
+  color: #171717;
+  background: rgb(255 255 255 / 85%);
+  transition: background 150ms ease, transform 150ms steps(2);
+}
+
+.blog-walker-home:hover {
+  background: #f3f4f6;
+}
+
+.blog-walker-home:focus-visible,
+.blog-walker-home[data-drop-ready="true"] {
+  outline: 2px dashed #171717;
+  outline-offset: 3px;
+}
+
+.blog-walker-home[data-drop-ready="true"] {
+  background: #e5e7eb;
+  transform: scale(1.1);
+}
+
+.blog-walker-home__sleep {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  font: bold 12px monospace;
+}
+
+@keyframes blog-walker-fall {
+  from { transform: rotate(0); }
+  to { transform: rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-walker-layer,
+  .blog-walker-home {
+    transition: none;
+  }
+
+  .blog-walker[data-mode="fallen"] .blog-walker__body {
+    animation: none;
+  }
+}
+
 .road-atlas {
   width: 800px;
 }

@@ -57,6 +57,7 @@ export default async function BlogPostPage({ params }: Props) {
             prose-headings:font-light prose-headings:tracking-wide
             prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
             prose-p:font-light prose-p:leading-relaxed prose-p:text-gray-600
+            [&>p+p]:mt-6
             prose-a:text-gray-900 prose-a:underline prose-a:decoration-gray-300
             hover:prose-a:decoration-gray-600 prose-a:transition-colors
             prose-strong:font-normal prose-strong:text-gray-900
@@ -64,7 +65,9 @@ export default async function BlogPostPage({ params }: Props) {
             prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-200
             prose-blockquote:font-light prose-blockquote:border-gray-300
             prose-ul:font-light prose-ol:font-light
-            prose-li:text-gray-600"
+            prose-li:text-gray-600
+            [&_img]:mx-auto [&_img]:my-6 [&_img]:h-auto
+            [&_img]:w-full [&_img]:max-w-[400px]"
           dangerouslySetInnerHTML={{ __html: post.contentHtml || "" }}
         />
 
