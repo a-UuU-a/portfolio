@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'], weight: ['100', '200', '300', '400', '
 
 export const metadata: Metadata = {
   title: 'Portfolio | Akira Murakami',
-  description: 'I am a master’s student at the ICD Lab, Tohoku University. I’m interested in the intersection of Architecture and Human-Computer Interaction (HCI).',
+  description: 'I am a first-year doctoral student at the ICD Lab, Tohoku University. I’m interested in the intersection of Architecture and Human-Computer Interaction (HCI).',
 };
 
 export default function RootLayout({
