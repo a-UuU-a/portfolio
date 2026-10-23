@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/build-ando-collection.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/build-ando-collection.mjs",
     "build": "next build",
+    "photos:ando": "node scripts/build-ando-collection.mjs",
+    "test:ando": "node --test tests/ando.test.cjs tests/ando-collection.test.mjs",
     "start": "next start",
     "lint": "next lint",
     "test:roads": "node --test tests/road-agents.test.cjs"

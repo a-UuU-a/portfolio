@@ -192,6 +192,15 @@ const otherWritings: Publication[] = [
   // Worksデータを定義
 const worksData: Work[] = [
   {
+    id: 4,
+    title: "Ando Atlas",
+    image: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/works/ando-atlas.svg`,
+    description: "安藤忠雄建築をめぐる写真の記録．球体の世界地図から，場所と写真をたどるビューアです．",
+    year: 2026,
+    tags: ["Photography", "Architecture", "Interactive Globe"],
+    link: "/ando"
+  },
+  {
     id: 1,
     title: "Rhizome",
     image: "works/rhizome.png",
@@ -222,20 +231,17 @@ const worksData: Work[] = [
 
   // WorkCardコンポーネント
 function WorkCard({ work }: { work: Work }) {
+  const internal = work.link?.startsWith('/');
+  const cover = (
+    <div className="aspect-video bg-gray-200 group-hover:bg-gray-300 transition-colors relative">
+      {work.image && <Image src={work.image} alt={work.title} fill className="object-cover" />}
+    </div>
+  );
   return (
     <div className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-      <div className="aspect-video bg-gray-200 group-hover:bg-gray-300 transition-colors relative">
-        {work.image && (
-          <Image
-            src={work.image}
-            alt={work.title}
-            fill
-            className="object-cover"
-          />
-        )}
-      </div>
+      {internal ? <Link href={work.link!} aria-label={`${work.title}を見る`}>{cover}</Link> : cover}
       <div className="p-6">
-        <h3 className="text-lg font-light mb-2">{work.title}</h3>
+        <h3 className="text-lg font-light mb-2">{internal ? <Link href={work.link!}>{work.title}</Link> : work.title}</h3>
         <p className="text-gray-600 font-light text-sm mb-4">
           {work.description}
         </p>
@@ -253,7 +259,9 @@ function WorkCard({ work }: { work: Work }) {
         )}
         <div className="flex items-center justify-between">
           <span className="text-xs text-gray-500 font-light">{work.year}</span>
-          {work.link && (
+          {work.link && (internal ? (
+            <Link href={work.link} className="inline-flex items-center gap-2 text-xs text-gray-500 hover:text-gray-900">写真を見る <ExternalLink size={14} /></Link>
+          ) : (
             <a
               href={work.link}
               target="_blank"
@@ -261,7 +269,7 @@ function WorkCard({ work }: { work: Work }) {
             >
               <ExternalLink size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
             </a>
-          )}
+          ))}
         </div>
       </div>
     </div>
