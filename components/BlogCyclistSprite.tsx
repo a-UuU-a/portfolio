@@ -3,6 +3,7 @@ import { pixelPath, type SpritePoint } from "@/lib/blog-sprite";
 
 type BikePoint = { along: number; across: number; height: number };
 const TAU = Math.PI * 2;
+const PEDAL_RADIUS = 3.3;
 const HEAD = "M2 0h4v1h2v1h1v4H8v1H6v1H2V7H1V6H0V2h1V1h1Z";
 
 function project(point: BikePoint, view: WalkerView): SpritePoint {
@@ -29,7 +30,7 @@ function pose(step: number, view: WalkerView) {
         view === "front" ? Math.cos(angle) * 0.8 : 0);
     });
     const spokes = Array.from({ length: 4 }, (_, index) => {
-      const angle = phase + index * Math.PI / 2;
+      const angle = -phase + index * Math.PI / 2;
       return [center, point(center.along + Math.cos(angle) * 3, center.height + Math.sin(angle) * 3)];
     });
     return [rim, ...spokes];
@@ -43,8 +44,9 @@ function pose(step: number, view: WalkerView) {
   const legs = [-1, 1].map((side, index) => {
     const angle = phase + index * Math.PI;
     const hip = point(-2, 11, side);
-    const ankle = point(crank.along + Math.cos(angle) * 2.3, crank.height + Math.sin(angle) * 2.3, side * 1.5);
-    const knee = point((hip.along + ankle.along) / 2 + 2, (hip.height + ankle.height) / 2 + 0.5, side * 2);
+    const ankle = point(crank.along + Math.cos(angle) * PEDAL_RADIUS, crank.height + Math.sin(angle) * PEDAL_RADIUS, side * 1.5);
+    const knee = point((hip.along + ankle.along) / 2 + 2.8,
+      (hip.height + ankle.height) / 2 + 0.8 + Math.sin(angle) * 0.6, side * 2);
     return draw([[hip, knee, ankle, point(ankle.along + 1, ankle.height, ankle.across)]]);
   });
   const body = draw([
