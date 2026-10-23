@@ -51,3 +51,21 @@ The field covers a document-space section around the character and is rebuilt
 as it approaches the section edge. Scrolling alone does not move or rebuild it.
 Resize, image load, font load and content mutations refresh the measurements.
 The character and house are mounted only in the article route layout.
+
+## Bicycle variation
+
+Each article's slug is hashed to choose walking or cycling with an approximately
+even split. The article layout passes this choice to `BlogWalker`, so the same
+article keeps its character across reloads, client navigation and static builds.
+New articles need no frontmatter setting.
+
+`components/BlogCyclistSprite.tsx` draws the cyclist on a 24 × 24 pixel grid,
+still displayed at 48 × 48 CSS pixels. It keeps the large, faceless black head
+and adds two wheels, a diamond frame, handlebars and bent legs. Side, vertical
+and both diagonal views project the bicycle and rider from the same geometry.
+The 12 poses rotate the pedals and wheel spokes with the controller's distance
+counter; resting, dragging and falling pause them. Both sprites share the pixel
+line rasterizer in `lib/blog-sprite.ts`.
+
+Both variations use the same page bounds, content avoidance, reduced-motion
+preference, click-to-fall, dragging and house controls.

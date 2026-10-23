@@ -1,6 +1,6 @@
 import { WALK_FRAMES, type WalkerView } from "@/lib/blog-walker";
+import { pixelPath, type SpritePoint as Point } from "@/lib/blog-sprite";
 
-type Point = { x: number; y: number };
 const HEAD = "M6 1h4v1h1v1h1v4h-1v1h-1v1H6V8H5V7H4V3h1V2h1Z";
 // Taper the diagonal head's corners while keeping its slight tilt and round middle.
 const HEADS: Record<WalkerView, string> = {
@@ -15,24 +15,6 @@ const TORSOS: Record<WalkerView, string> = {
   "diagonal-down": "M7 9h3v1h1v2H7v-1H6v-1h1Z",
   "diagonal-up": "M6 9h4v1h1v1H9v1H6Z",
 };
-
-// Draw bones as square pixels, rather than rotating blocks or changing silhouettes.
-function pixelPath(lines: Point[][]) {
-  const pixels = new Set<string>();
-  for (const points of lines) {
-    for (let segment = 1; segment < points.length; segment++) {
-      const from = points[segment - 1];
-      const to = points[segment];
-      const steps = Math.max(1, Math.ceil(Math.max(Math.abs(to.x - from.x), Math.abs(to.y - from.y)) * 2));
-      for (let step = 0; step <= steps; step++) {
-        const x = Math.round(from.x + (to.x - from.x) * step / steps);
-        const y = Math.round(from.y + (to.y - from.y) * step / steps);
-        pixels.add(x + " " + y);
-      }
-    }
-  }
-  return Array.from(pixels, pixel => "M" + pixel + "h1v1h-1Z").join("");
-}
 
 function foot(step: number): Point {
   const phase = step % WALK_FRAMES;
