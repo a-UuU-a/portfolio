@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { usePathname } from "next/navigation";
 import BlogWalkerSprite from "@/components/BlogWalkerSprite";
+import BlogCyclistSprite from "@/components/BlogCyclistSprite";
 import {
   advanceWalker, clampWalkPosition, createWalkBounds, createWalker, dropWalker,
   fallWalker, isHomeDrop, wakeWalker,
   createWalkField, walkerViewForHeading, WALKER_SIZE, WALK_FRAMES, WALK_STRIDE,
-  type ContentRegion, type HomeBounds, type WalkerMode, type WalkerState, type WalkField, type WalkBounds, type WalkerView,
+  type ContentRegion, type HomeBounds, type WalkerMode, type WalkerState, type WalkField, type WalkBounds, type WalkerView, type WalkerVariant,
 } from "@/lib/blog-walker";
 import { readContentRegions } from "@/lib/blog-walker-content";
 
@@ -23,7 +24,7 @@ type Gesture = {
   moved: boolean;
 };
 
-export default function BlogWalker() {
+export default function BlogWalker({ variant }: { variant: WalkerVariant }) {
   const pathname = usePathname();
   const layerRef = useRef<HTMLDivElement>(null);
   const boundsRef = useRef<WalkBounds | null>(null);
@@ -296,11 +297,12 @@ export default function BlogWalker() {
           ref={characterRef}
           type="button"
           className="blog-walker"
+          data-variant={variant}
           data-mode={mode}
           data-step="rest"
           data-view="side"
           tabIndex={ready && mode !== "home" ? 0 : -1}
-          aria-label="ミニキャラ。クリックで転ぶ。ドラッグでつまんで家に帰せます。"
+          aria-label={(variant === "cycling" ? "自転車に乗ったミニキャラ。" : "歩くミニキャラ。") + "クリックで転ぶ。ドラッグでつまんで家に帰せます。"}
           title="クリックでこける・ドラッグでつまむ"
           onPointerDown={pickUp}
           onPointerMove={drag}
@@ -311,7 +313,7 @@ export default function BlogWalker() {
         >
           <div className="blog-walker__body" aria-hidden="true">
             <div ref={facingRef} className="blog-walker__facing">
-              <BlogWalkerSprite />
+              {variant === "cycling" ? <BlogCyclistSprite /> : <BlogWalkerSprite />}
             </div>
           </div>
         </button>

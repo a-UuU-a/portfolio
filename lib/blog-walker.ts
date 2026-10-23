@@ -3,6 +3,7 @@ export type WalkBounds = { left: number; right: number; top: number; bottom: num
 export type HomeBounds = WalkBounds;
 export type WalkerMode = "resting" | "walking" | "fallen" | "dragging" | "home";
 export type WalkerView = "side" | "front" | "diagonal-down" | "diagonal-up";
+export type WalkerVariant = "walking" | "cycling";
 export type WalkerState = {
   position: WalkPoint;
   target: WalkPoint;
@@ -24,6 +25,19 @@ export const WALK_FRAMES = 12;
 const TAU = Math.PI * 2;
 // Most walks avoid content strongly; a few have a much weaker preference.
 const EXPLORATION_CHANCE = 0.06;
+
+// Hash the article slug so its random-looking choice survives reloads and static builds.
+export function walkerVariantForArticle(slug: string): WalkerVariant {
+  let hash = 2166136261;
+  for (let index = 0; index < slug.length; index++) {
+    hash = Math.imul(hash ^ slug.charCodeAt(index), 16777619);
+  }
+  // Mix similar slugs (for example, numbered posts) before taking the upper bit.
+  hash = Math.imul(hash ^ (hash >>> 16), 0x85ebca6b);
+  hash = Math.imul(hash ^ (hash >>> 13), 0xc2b2ae35);
+  hash ^= hash >>> 16;
+  return (hash >>> 0) / 4294967296 < 0.5 ? "walking" : "cycling";
+}
 
 export type ContentRegion = WalkBounds & { strength: number };
 export type WalkField = {
