@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Minus, Pause, Play, Plus, RotateCcw } from "lucide-react";
 import { assetPath, buildingOrbitVector, clampGlobeZoom, globeProjector, globeVector, longitudeDifference, photoAnchorProgress, photoClusterOffset, photoDensityScale, photoGlobeVector, photoMapClearance, relaxPhotoLayout, spreadMarkers, wrapLongitude, type AndoBuilding, type GlobeView, type Vector3, type PhotoLayoutOffset, type PhotoLayoutTarget } from "@/lib/ando";
-import styles from "@/app/ando/ando.module.css";
+import styles from "./ando.module.css";
 
 type World = { coastlines: [number, number][][]; points: [number, number][] };
 type Props = {

@@ -5,7 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import AndoGlobe from "./AndoGlobe";
 import { assetPath, collectionPhotos, type AndoCollection, type AndoPhoto } from "@/lib/ando";
-import styles from "@/app/ando/ando.module.css";
+import styles from "./ando.module.css";
 
 function Photo({ photo, className, eager = false }: { photo: AndoPhoto; className?: string; eager?: boolean }) {
   const [failed, setFailed] = useState(false);
