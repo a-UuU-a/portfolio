@@ -1,0 +1,11 @@
+{
+  "name": "建築名",
+  "nameEn": "Building name",
+  "location": "市区町村・都道府県",
+  "country": "日本",
+  "coordinates": [
+    34.56148,
+    135.00878
+  ],
+  "note": ""
+}

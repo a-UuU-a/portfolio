@@ -1,0 +1,197 @@
+{
+  "buildings": [
+    {
+      "id": "21_21_design_sight",
+      "name": "21_21 DESIGN SIGHT",
+      "location": "港区・東京都",
+      "country": "日本",
+      "coordinates": [
+        35.6675248,
+        139.7305214
+      ],
+      "nameEn": "21_21 DESIGN SIGHT",
+      "photos": [
+        {
+          "id": "21_21_design_sight/IMG_0214.JPG",
+          "src": "/photos/ando/21_21_design_sight/IMG_0214.JPG",
+          "alt": "21_21 DESIGN SIGHT — IMG_0214（1）"
+        },
+        {
+          "id": "21_21_design_sight/IMG_0216 3.JPG",
+          "src": "/photos/ando/21_21_design_sight/IMG_0216%203.JPG",
+          "alt": "21_21 DESIGN SIGHT — IMG_0216 3（2）"
+        },
+        {
+          "id": "21_21_design_sight/IMG_0218 3.JPG",
+          "src": "/photos/ando/21_21_design_sight/IMG_0218%203.JPG",
+          "alt": "21_21 DESIGN SIGHT — IMG_0218 3（3）"
+        }
+      ]
+    },
+    {
+      "id": "chapel_of_the_wind",
+      "name": "風の教会",
+      "location": "神戸市灘区・兵庫県",
+      "country": "日本",
+      "coordinates": [
+        34.7563922,
+        135.2454739
+      ],
+      "nameEn": "Chapel of the Wind",
+      "photos": [
+        {
+          "id": "chapel_of_the_wind/20191117_101425.jpg",
+          "src": "/photos/ando/chapel_of_the_wind/20191117_101425.jpg",
+          "alt": "風の教会 — 20191117_101425（1）"
+        },
+        {
+          "id": "chapel_of_the_wind/20191117_101846.jpg",
+          "src": "/photos/ando/chapel_of_the_wind/20191117_101846.jpg",
+          "alt": "風の教会 — 20191117_101846（2）"
+        },
+        {
+          "id": "chapel_of_the_wind/20191117_101854.jpg",
+          "src": "/photos/ando/chapel_of_the_wind/20191117_101854.jpg",
+          "alt": "風の教会 — 20191117_101854（3）"
+        }
+      ]
+    },
+    {
+      "id": "hyogo_prefectural_museum_of_art",
+      "name": "兵庫県立美術館",
+      "location": "神戸市中央区・兵庫県",
+      "country": "日本",
+      "coordinates": [
+        34.6992839,
+        135.2182245
+      ],
+      "nameEn": "Hyogo Prefectural Museum of Art",
+      "photos": [
+        {
+          "id": "hyogo_prefectural_museum_of_art/IMG_0201.JPG",
+          "src": "/photos/ando/hyogo_prefectural_museum_of_art/IMG_0201.JPG",
+          "alt": "兵庫県立美術館 — IMG_0201（1）"
+        },
+        {
+          "id": "hyogo_prefectural_museum_of_art/IMG_0203.JPG",
+          "src": "/photos/ando/hyogo_prefectural_museum_of_art/IMG_0203.JPG",
+          "alt": "兵庫県立美術館 — IMG_0203（2）"
+        },
+        {
+          "id": "hyogo_prefectural_museum_of_art/IMG_0218 2.JPG",
+          "src": "/photos/ando/hyogo_prefectural_museum_of_art/IMG_0218%202.JPG",
+          "alt": "兵庫県立美術館 — IMG_0218 2（3）"
+        }
+      ]
+    },
+    {
+      "id": "nakanoshima_children's_book_forest",
+      "name": "こども本の森 中之島",
+      "location": "大阪市北区・大阪府",
+      "country": "日本",
+      "coordinates": [
+        34.693046,
+        135.5064044
+      ],
+      "nameEn": "Nakanoshima Children's Book Forest",
+      "photos": [
+        {
+          "id": "nakanoshima_children's_book_forest/IMG_2987.JPG",
+          "src": "/photos/ando/nakanoshima_children's_book_forest/IMG_2987.JPG",
+          "alt": "こども本の森 中之島 — IMG_2987（1）"
+        },
+        {
+          "id": "nakanoshima_children's_book_forest/IMG_2992.JPG",
+          "src": "/photos/ando/nakanoshima_children's_book_forest/IMG_2992.JPG",
+          "alt": "こども本の森 中之島 — IMG_2992（2）"
+        },
+        {
+          "id": "nakanoshima_children's_book_forest/IMG_3003.JPG",
+          "src": "/photos/ando/nakanoshima_children's_book_forest/IMG_3003.JPG",
+          "alt": "こども本の森 中之島 — IMG_3003（3）"
+        },
+        {
+          "id": "nakanoshima_children's_book_forest/IMG_3006.JPG",
+          "src": "/photos/ando/nakanoshima_children's_book_forest/IMG_3006.JPG",
+          "alt": "こども本の森 中之島 — IMG_3006（4）"
+        },
+        {
+          "id": "nakanoshima_children's_book_forest/IMG_3021.JPG",
+          "src": "/photos/ando/nakanoshima_children's_book_forest/IMG_3021.JPG",
+          "alt": "こども本の森 中之島 — IMG_3021（5）"
+        }
+      ]
+    },
+    {
+      "id": "shanghai_poly_grand_theatre",
+      "name": "上海保利大剧院",
+      "location": "上海市嘉定区",
+      "country": "中国",
+      "coordinates": [
+        31.35533,
+        121.26055
+      ],
+      "nameEn": "Shanghai Poly Grand Theatre",
+      "photos": [
+        {
+          "id": "shanghai_poly_grand_theatre/IMG_3834.JPG",
+          "src": "/photos/ando/shanghai_poly_grand_theatre/IMG_3834.JPG",
+          "alt": "上海保利大剧院 — IMG_3834（1）"
+        },
+        {
+          "id": "shanghai_poly_grand_theatre/IMG_3836.JPG",
+          "src": "/photos/ando/shanghai_poly_grand_theatre/IMG_3836.JPG",
+          "alt": "上海保利大剧院 — IMG_3836（2）"
+        },
+        {
+          "id": "shanghai_poly_grand_theatre/IMG_3850.JPG",
+          "src": "/photos/ando/shanghai_poly_grand_theatre/IMG_3850.JPG",
+          "alt": "上海保利大剧院 — IMG_3850（3）"
+        },
+        {
+          "id": "shanghai_poly_grand_theatre/IMG_3852.JPG",
+          "src": "/photos/ando/shanghai_poly_grand_theatre/IMG_3852.JPG",
+          "alt": "上海保利大剧院 — IMG_3852（4）"
+        }
+      ]
+    },
+    {
+      "id": "towada_public_library",
+      "name": "十和田市民図書館",
+      "location": "十和田市・青森県",
+      "country": "日本",
+      "coordinates": [
+        40.61115861,
+        141.2046217
+      ],
+      "nameEn": "Towada City Library",
+      "photos": [
+        {
+          "id": "towada_public_library/DSCF0321 2.JPG",
+          "src": "/photos/ando/towada_public_library/DSCF0321%202.JPG",
+          "alt": "十和田市民図書館 — DSCF0321 2（1）"
+        },
+        {
+          "id": "towada_public_library/DSCF0325.JPG",
+          "src": "/photos/ando/towada_public_library/DSCF0325.JPG",
+          "alt": "十和田市民図書館 — DSCF0325（2）"
+        },
+        {
+          "id": "towada_public_library/DSCF0327 2.JPG",
+          "src": "/photos/ando/towada_public_library/DSCF0327%202.JPG",
+          "alt": "十和田市民図書館 — DSCF0327 2（3）"
+        },
+        {
+          "id": "towada_public_library/DSCF0334 3.JPG",
+          "src": "/photos/ando/towada_public_library/DSCF0334%203.JPG",
+          "alt": "十和田市民図書館 — DSCF0334 3（4）"
+        },
+        {
+          "id": "towada_public_library/DSCF0338 2.JPG",
+          "src": "/photos/ando/towada_public_library/DSCF0338%202.JPG",
+          "alt": "十和田市民図書館 — DSCF0338 2（5）"
+        }
+      ]
+    }
+  ]
+}
