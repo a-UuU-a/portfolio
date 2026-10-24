@@ -12,21 +12,24 @@ const compiledModule = { exports: {} };
 new Function('module', 'exports', compiled)(compiledModule, compiledModule.exports);
 const {
   WALKER_SIZE, WALK_SPEED, createWalkField, sampleWalkField, createWalkBounds, clampWalkPosition, createWalker,
-  advanceWalker, fallWalker, isHomeDrop, dropWalker, wakeWalker, walkerViewForHeading, walkerVariantForArticle,
+  advanceWalker, fallWalker, isHomeDrop, dropWalker, wakeWalker, walkerViewForHeading, chooseWalkerVariant,
 } = compiledModule.exports;
 
 function randomSeed(seed) {
   return () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296);
 }
 
-test('article slugs choose a repeatable mix of walking and cycling characters', () => {
-  const slugs = ['schefflera', 'first-post', 'architecture', '自転車のある日', ...Array.from({ length: 1000 }, (_, index) => `post-${index}`)];
-  const variants = slugs.map(walkerVariantForArticle);
+test('each article load draws a fresh, approximately even walking or cycling choice', () => {
+  const samples = [0, 0.49, 0.5, 0.99, 0.1, 0.9];
+  let draws = 0;
+  const next = () => samples[draws++];
+  assert.deepEqual(samples.map(() => chooseWalkerVariant(next)), ['walking', 'walking', 'cycling', 'cycling', 'walking', 'cycling']);
+  assert.equal(draws, samples.length, 'each load samples again rather than reusing an article assignment');
+  const random = randomSeed(42);
+  const variants = Array.from({ length: 1000 }, () => chooseWalkerVariant(random));
   assert.ok(variants.every(variant => variant === 'walking' || variant === 'cycling'));
-  assert.deepEqual(slugs.map(walkerVariantForArticle), variants, 'reloads keep the article assignment');
-  assert.deepEqual([...slugs].reverse().map(walkerVariantForArticle), [...variants].reverse(), 'visit order does not affect the assignment');
   const cyclingRatio = variants.filter(variant => variant === 'cycling').length / variants.length;
-  assert.ok(cyclingRatio > 0.4 && cyclingRatio < 0.6, 'articles receive an approximately even mix');
+  assert.ok(cyclingRatio > 0.4 && cyclingRatio < 0.6, 'repeated loads receive an approximately even mix');
 });
 
 test('unobstructed wandering can reach the center on desktop and mobile', () => {

@@ -6,7 +6,7 @@ import BlogWalkerSprite from "@/components/BlogWalkerSprite";
 import BlogCyclistSprite from "@/components/BlogCyclistSprite";
 import {
   advanceWalker, clampWalkPosition, createWalkBounds, createWalker, dropWalker,
-  fallWalker, isHomeDrop, wakeWalker,
+  fallWalker, isHomeDrop, wakeWalker, chooseWalkerVariant,
   createWalkField, walkerViewForHeading, WALKER_SIZE, WALK_FRAMES, WALK_STRIDE,
   type ContentRegion, type HomeBounds, type WalkerMode, type WalkerState, type WalkField, type WalkBounds, type WalkerView, type WalkerVariant,
 } from "@/lib/blog-walker";
@@ -24,7 +24,7 @@ type Gesture = {
   moved: boolean;
 };
 
-export default function BlogWalker({ variant }: { variant: WalkerVariant }) {
+export default function BlogWalker() {
   const pathname = usePathname();
   const layerRef = useRef<HTMLDivElement>(null);
   const boundsRef = useRef<WalkBounds | null>(null);
@@ -34,6 +34,7 @@ export default function BlogWalker({ variant }: { variant: WalkerVariant }) {
   const stateRef = useRef<WalkerState | null>(null);
   const gestureRef = useRef<Gesture | null>(null);
   const refreshRef = useRef<() => void>(() => {});
+  const [variant, setVariant] = useState<WalkerVariant>("walking");
   const [mode, setMode] = useState<WalkerMode>("resting");
   const [ready, setReady] = useState(false);
   const [dropReady, setDropReady] = useState(false);
@@ -75,6 +76,8 @@ export default function BlogWalker({ variant }: { variant: WalkerVariant }) {
     const facing = facingRef.current;
     const layer = layerRef.current;
     if (!character || !facing || !layer) return;
+    // Choose after hydration, while hidden, to keep the static HTML consistent.
+    setVariant(chooseWalkerVariant());
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const pageGeometry = () => {
       const rect = layer.getBoundingClientRect();

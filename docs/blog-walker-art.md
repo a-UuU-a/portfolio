@@ -54,10 +54,13 @@ The character and house are mounted only in the article route layout.
 
 ## Bicycle variation
 
-Each article's slug is hashed to choose walking or cycling with an approximately
-even split. The article layout passes this choice to `BlogWalker`, so the same
-article keeps its character across reloads, client navigation and static builds.
-New articles need no frontmatter setting.
+On each article load, `BlogWalker` chooses walking or cycling in the browser with
+equal probability. Reloading the same article or navigating to another article
+draws a fresh choice; the same variation can appear on consecutive loads. The
+choice stays unchanged during scrolling, resizing, dragging and house controls.
+Selection happens after hydration, before the character becomes visible, so the
+static HTML remains consistent. No frontmatter setting or stored assignment is
+needed.
 
 `components/BlogCyclistSprite.tsx` draws the cyclist on a 24 × 24 pixel grid,
 still displayed at 48 × 48 CSS pixels. It keeps the large, faceless black head

@@ -1,11 +1,10 @@
 import BlogWalker from "@/components/BlogWalker";
-import { walkerVariantForArticle } from "@/lib/blog-walker";
 
-export default function BlogArticleLayout({ children, params }: { children: React.ReactNode; params: { slug: string } }) {
+export default function BlogArticleLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="blog-article-page">
       {children}
-      <BlogWalker variant={walkerVariantForArticle(params.slug)} />
+      <BlogWalker />
     </div>
   );
 }
