@@ -3,12 +3,12 @@
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Award, BookOpen, Briefcase, ChevronDown, ExternalLink, FolderOpen, GraduationCap, Menu, MessageSquare, NotebookPen, Star, Users, User, X } from "lucide-react";
-import { FaFacebook, FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { Award, BookOpen, Briefcase, ChevronDown, ExternalLink, FileText, FolderOpen, GraduationCap, Menu, MessageSquare, NotebookPen, Star, Users, User, X } from "lucide-react";
+import { FaFacebook, FaGithub, FaGoogleScholar, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import P5Sketch from "./P5Sketch";
 import GlitchImage from "./GlitchImage";
 import { portfolioSketch } from "./portfolio-sketch";
-import { advisors, awards, education, experiences, publicationGroups, selectedPrograms, service, works, type PortfolioEntry, type Publication, type Work } from "@/lib/portfolio-data";
+import { advisors, awards, education, experiences, profile, publicationGroups, selectedPrograms, service, works, type PortfolioEntry, type Publication, type Work } from "@/lib/portfolio-data";
 import { formatPortfolioDate, formatPortfolioPeriod, portfolioAssetPath, portfolioCopy, portfolioPath, type Locale } from "@/lib/portfolio-i18n";
 
 const sections = [
@@ -24,6 +24,7 @@ const sections = [
 ];
 
 const socialLinks = [
+  { name: "Google Scholar", href: profile.googleScholar, icon: FaGoogleScholar },
   { name: "X", href: "https://x.com/_akira_murakami", icon: FaXTwitter },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/akira-murakami-861ba0298/", icon: FaLinkedin },
   { name: "Facebook", href: "https://www.facebook.com/set02akira/", icon: FaFacebook },
@@ -162,6 +163,7 @@ export default function Portfolio({ locale }: { locale: Locale }) {
             <Link href="/blog/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-light whitespace-nowrap text-gray-500 hover:text-gray-900">{copy.blog}<ExternalLink size={12} aria-hidden="true" /></Link>
           </div>
           <div className="flex items-center gap-5">
+            <a href={portfolioAssetPath("cv/akira-murakami-cv.pdf")} target="_blank" rel="noopener noreferrer" aria-label={copy.cvLink} className="inline-flex items-center gap-1.5 text-sm font-light text-gray-600 transition-colors hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><FileText size={15} aria-hidden="true" />{copy.cv}</a>
             <LanguageSwitcher locale={locale} />
             <button type="button" className="xl:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={copy.menu} aria-expanded={isMenuOpen} aria-controls="mobile-navigation">{isMenuOpen ? <X size={24} /> : <Menu size={24} />}</button>
           </div>
@@ -185,6 +187,7 @@ export default function Portfolio({ locale }: { locale: Locale }) {
             <div className="space-y-6">
               <h1 className="text-2xl font-light tracking-wide">{copy.name}</h1>
               <p lang="en" className="text-gray-600 font-light leading-relaxed text-lg">{copy.biography}</p>
+              <a href={portfolioAssetPath("cv/akira-murakami-cv.pdf")} target="_blank" rel="noopener noreferrer" aria-label={copy.cvLink} className="inline-flex items-center gap-2.5 rounded-sm border-b border-gray-400 pb-2 text-sm font-light text-gray-800 transition-colors hover:border-black hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><FileText size={17} aria-hidden="true" /><span>{copy.cv}</span><ExternalLink size={13} aria-hidden="true" /></a>
             </div>
             <div className="aspect-square rounded-lg overflow-hidden relative"><GlitchImage src={portfolioAssetPath("akira.jpeg")} alt={copy.portrait} className="object-cover" /></div>
           </div>
@@ -222,9 +225,9 @@ export default function Portfolio({ locale }: { locale: Locale }) {
 
         <Section id="contact" title="Contact">
           <div className="text-center">
-            <div className="mb-12"><h3 className="text-xl font-light mb-6">{copy.email}</h3><p className="text-base sm:text-2xl font-light text-black break-words">murakami.akira.q2 [at] dc.tohoku.ac.jp</p></div>
+            <div className="mb-12"><h3 className="text-xl font-light mb-6">{copy.email}</h3><p className="text-base sm:text-2xl font-light text-black break-words">{profile.email.replace("@", " [at] ")}</p></div>
             <h3 className="text-xl font-light mb-8">{copy.follow}</h3>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-8">{socialLinks.map(({ name, href, icon: Icon }) => <a key={name} href={href} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-3 p-3 rounded-lg transition-colors"><div className="p-4 border border-gray-200 rounded-full group-hover:border-gray-400 transition-colors"><Icon size={24} className="text-gray-600 group-hover:text-black transition-colors" /></div><span className="text-sm font-light text-gray-600 group-hover:text-black">{name}</span></a>)}</div>
+            <div className="mx-auto grid max-w-2xl grid-cols-5 gap-2 sm:gap-6">{socialLinks.map(({ name, href, icon: Icon }) => <a key={name} href={href} target="_blank" rel="noopener noreferrer" className="group flex min-w-0 flex-col items-center gap-3 rounded-lg py-3 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 transition-colors group-hover:border-gray-400 sm:h-14 sm:w-14"><Icon size={24} aria-hidden="true" className="h-5 w-5 text-gray-600 transition-colors group-hover:text-black sm:h-6 sm:w-6" /></div><span className="min-h-[2.5em] text-center text-[11px] font-light leading-tight text-gray-600 group-hover:text-black sm:text-sm">{name}</span></a>)}</div>
           </div>
         </Section>
       </main>

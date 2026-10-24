@@ -1,11 +1,13 @@
+import { profile } from "./portfolio-data";
+
 export type Locale = "ja" | "en";
 export type LocalizedText = Record<Locale, string>;
 export type DatePeriod = { start: string; end?: string; currentLabel?: LocalizedText };
 
 export const portfolioCopy = {
   ja: {
-    name: "Akira MURAKAMI / 村上 聡",
-    biography: "I am a doctoral student at the ICD Lab, Tohoku University. I am interested in the intersection of Architecture and Human-Computer Interaction (HCI).",
+    name: profile.displayName.ja,
+    biography: profile.biography.ja,
     discover: "Discover More",
     menu: "メニュー",
     language: "表示言語",
@@ -20,6 +22,8 @@ export const portfolioCopy = {
     viewWork: "作品を見る",
     publicationLink: "論文・記事を開く",
     blog: "Blog",
+    cv: "CV",
+    cvLink: "CVを開く（新しいタブ）",
     publicationHeadings: {
       intlJournals: "国際学術雑誌（査読あり）",
       domesticJournals: "国内学術雑誌（査読あり）",
@@ -30,8 +34,8 @@ export const portfolioCopy = {
     },
   },
   en: {
-    name: "Akira MURAKAMI",
-    biography: "I am a doctoral student at the ICD Lab, Graduate School of Information Sciences, Tohoku University. I am interested in the intersection of architecture and Human-Computer Interaction (HCI).",
+    name: profile.displayName.en,
+    biography: profile.biography.en,
     discover: "Discover More",
     menu: "Menu",
     language: "Language",
@@ -46,6 +50,8 @@ export const portfolioCopy = {
     viewWork: "View project",
     publicationLink: "Open publication",
     blog: "Blog (Japanese)",
+    cv: "CV",
+    cvLink: "Open CV (new tab)",
     publicationHeadings: {
       intlJournals: "International Journals (Peer Reviewed)",
       domesticJournals: "Domestic Journals (Peer Reviewed)",
