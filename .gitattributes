@@ -1,0 +1,4 @@
+# Preserve generated documents and bundled font files byte-for-byte.
+*.pdf binary
+*.otf binary
+*.ttf binary

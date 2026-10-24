@@ -6,6 +6,8 @@
 
 実績は `Awards`（受賞・入選）、`Selected Programs`（プログラム採択）、`Service`（学生委員・ボランティア・スタッフ）に分けています。
 
+英語の研究用CVはTypstで作成し、ホームページのヘッダーとAboutからPDFを開けます。実績はWebサイトと共通のデータから読み込み、`npm run cv` で更新します。初回の準備・編集方法は [cv/README.md](cv/README.md) を参照してください。PDFはリポジトリに同梱し、GitHub ActionsでのCV生成は行いません。
+
 `components/Portfolio.tsx` は日英共通です。`app/(ja)` と `app/(en)` は言語ごとのHTML設定を持つルートグループで、既存の `/blog/` と `/ando/` は日本語ページとして残しています。両言語ともビルド時に静的出力されます。
 
 GitHub Pagesの公開パスは `NEXT_PUBLIC_BASE_PATH=/portfolio` で設定します。正規URLの既定ホストは `https://a-uuu-a.github.io` です。独自ドメインへ移す場合は `NEXT_PUBLIC_SITE_URL` で変更できます。

@@ -1,11 +1,26 @@
 import type { DatePeriod, LocalizedText } from "./portfolio-i18n";
 
+// Shared by the website and the English academic CV.
+export const profile = {
+  name: "Akira Murakami",
+  displayName: { ja: "Akira MURAKAMI / 村上 聡", en: "Akira MURAKAMI" },
+  email: "murakami.akira.q2@dc.tohoku.ac.jp",
+  googleScholar: "https://scholar.google.com/citations?user=eAVxb5UAAAAJ",
+  lab: "ICD Lab",
+  cvIntroduction: "I am a doctoral student at the ICD Lab, Graduate School of Information Sciences, Tohoku University, advised by Yoshifumi Kitamura and Kazuyuki Fujita. My research lies at the intersection of Human-Computer Interaction (HCI) and architecture. My recent work focuses on shape-changing robotic furniture and architectural systems for reconfigurable spaces, as well as spatial layout editing using AI and XR.",
+  biography: {
+    ja: "I am a doctoral student at the ICD Lab, Tohoku University. I am interested in the intersection of Architecture and Human-Computer Interaction (HCI).",
+    en: "I am a doctoral student at the ICD Lab, Graduate School of Information Sciences, Tohoku University. I am interested in the intersection of architecture and Human-Computer Interaction (HCI).",
+  },
+};
+
 export type Publication = {
   title: string;
   authors: string;
   venue: string;
   year: number;
   link?: string;
+  eventDate?: string;
 };
 
 // 各カテゴリごとの論文データ
@@ -98,6 +113,7 @@ export const intlRefereedDemosPosters: Publication[] = [
     venue: "32nd ACM Symposium on Virtual Reality Software and Technology (VRST ’26), Sendai, Japan, November 16–18, 2026, ACM, 2 pages",
     year: 2026,
     link: "https://doi.org/10.1145/3822517.3849962",
+    eventDate: "2026-11-16",
   },
 ];
 export const domesticConferences: Publication[] = [
@@ -180,6 +196,7 @@ type Education = {
   id: string;
   degree: LocalizedText;
   institution: LocalizedText;
+  university?: LocalizedText;
   period: DatePeriod;
 };
 
@@ -189,22 +206,27 @@ const informationSciences: LocalizedText = {
   en: "Graduate School of Information Sciences, Tohoku University",
 };
 
+const tohokuUniversity: LocalizedText = { ja: "東北大学", en: "Tohoku University" };
+
 export const education: Education[] = [
   {
     id: "doctoral",
     degree: { ja: "Doctoral Program in Information Science", en: "Doctoral Program in Information Science" },
     institution: informationSciences,
+    university: tohokuUniversity,
     period: { start: "2026-10", currentLabel: { ja: "Current", en: "Present" } },
   },
   {
     id: "masters",
     degree: { ja: "Master of Information Science", en: "Master of Information Sciences" },
     institution: informationSciences,
+    university: tohokuUniversity,
     period: { start: "2024-10", end: "2026-09" },
   },
   {
     id: "bachelors",
     degree: { ja: "Bachelor of Engineering", en: "Bachelor of Engineering" },
+    university: tohokuUniversity,
     institution: {
       // Official names: https://www.ecei.tohoku.ac.jp/eipe/
       // https://www.eng.tohoku.ac.jp/english/academics/studies/bachelor/eipe.html
@@ -335,10 +357,13 @@ export const works: Work[] = [
 export type PortfolioEntry = {
   id: string;
   title: LocalizedText;
+  // Optional concise English wording for the CV; other entries use the website copy.
+  cv?: { title?: string; details?: string[] };
   funding?: string;
   details?: LocalizedText[];
   date?: string;
   endDate?: string;
+  eventDate?: string;
   period?: DatePeriod;
   location?: string;
   contributors?: string[];
@@ -354,6 +379,14 @@ export const awards: PortfolioEntry[] = [
       en: "Interverse Virtual Reality Challenge (IVRC) 2025 — 「豆|頁：なんかきられてももどるやつ」",
     },
     date: "2025",
+    cv: {
+      title: "Interverse Virtual Reality Challenge (IVRC) 2025",
+      details: [
+        "Project: 「豆|頁：なんかきられてももどるやつ」.",
+        "SEED Stage: Unity Award, CRI Middleware Award, and Audience Award.",
+        "LEAP Stage: Etsuko Ichihara Award and Audience Award; one of 10 finalists from 96 submissions.",
+      ],
+    },
     details: [
       {
         ja: "SEED Stageにおいて Unity賞，CRI・ミドルウェア賞，観客賞　受賞．",
@@ -428,6 +461,7 @@ export const selectedPrograms: PortfolioEntry[] = [
       en: "Selected for the 4th cohort of the MiTOHOKU Program, METI AKATSUKI Project",
     },
     funding: "Project funding: 1,200,000 JPY",
+    cv: { title: "MiTOHOKU Program, 4th cohort — METI AKATSUKI Project" },
     links: [{ href: "https://mitohoku.jp/", label: { ja: "MiTOHOKU Program", en: "MiTOHOKU Program" } }],
   },
   {
@@ -437,6 +471,7 @@ export const selectedPrograms: PortfolioEntry[] = [
       en: "Selected for the Graduate Program in Data Science (GP-DS), Tohoku University",
     },
     funding: "200,000 JPY/month + financial support for study abroad",
+    cv: { title: "Graduate Program in Data Science (GP-DS), Tohoku University" },
     period: { start: "2025-04" },
     links: [{ href: "https://gp-ds.tohoku.ac.jp/", label: { ja: "GP-DS", en: "GP-DS" } }],
   },
@@ -447,6 +482,7 @@ export const selectedPrograms: PortfolioEntry[] = [
       en: "Selected for the 2nd cohort of the MiTOHOKU Program, METI AKATSUKI Project",
     },
     funding: "Project funding: 1,000,000 JPY",
+    cv: { title: "MiTOHOKU Program, 2nd cohort — METI AKATSUKI Project" },
     links: [{ href: "https://mitohoku.jp/", label: { ja: "MiTOHOKU Program", en: "MiTOHOKU Program" } }],
   },
 ];
@@ -462,6 +498,7 @@ export const service: PortfolioEntry[] = [
     id: "vrst-2026",
     title: { ja: "ACM VRST 2026 Student Volunteer", en: "ACM VRST 2026 — Student Volunteer" },
     date: "2026",
+    eventDate: "2026-11-16",
   },
   {
     id: "chi-symposium-2025",
@@ -480,6 +517,7 @@ export const service: PortfolioEntry[] = [
   {
     id: "seameo-2019",
     title: { ja: "SEAMEO Education Agenda and Blended Mode Training Programme", en: "SEAMEO Workshop — Staff" },
+    cv: { details: ["Problem-Solving and Computational Thinking Skills"] },
     date: "2019",
     location: "Seameo Recsam, Penang, Malaysia",
     details: [
@@ -492,6 +530,7 @@ export const service: PortfolioEntry[] = [
   {
     id: "seameo-2018",
     title: { ja: "SEAMEO Education Agenda and Blended Mode Training Programme", en: "SEAMEO Workshop — Staff" },
+    cv: { details: ["Workshop on Enhancing Creativity through Transdisciplinary Mathematics Education"] },
     date: "2018-08-27",
     endDate: "2018-08-28",
     location: "Seameo Recsam, Penang, Malaysia",
