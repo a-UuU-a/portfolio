@@ -59,7 +59,7 @@ export const intlConferences: Publication[] = [
     title: "OrigamiWalls: A Shape-Changing Robotic Partitioning System for Diverse Spatial Reconfigurations",
     authors:
       "<strong><u>Akira Murakami</u></strong>, Kazuyuki Fujita, Yuki Onishi, and Yoshifumi Kitamura",
-    venue: "Proceedings of the 2026 Designing Interactive Systems Conference (DIS ’26), Singapore, pp. 4559–4576, 2026",
+    venue: "Proceedings of the 2026 Designing Interactive Systems Conference (DIS ’26), Singapore, pp. 4559–4576, 2026 (Acceptance rate: 21%)",
     year: 2026,
     link: "https://doi.org/10.1145/3800645.3812904",
   },
@@ -110,7 +110,7 @@ export const intlRefereedDemosPosters: Publication[] = [
     title: "AmbiXR: Adaptive Visual Syntax for Resolving Ambiguous Instructions in LLM-Assisted XR Authoring",
     authors:
       "<strong><u>Akira Murakami</u></strong>, Kodai Hatakeyama, Ryo Ooka, Kazuyuki Fujita, Guanghan Zhao, and Yoshifumi Kitamura",
-    venue: "32nd ACM Symposium on Virtual Reality Software and Technology (VRST ’26), Sendai, Japan, November 16–18, 2026, ACM, 2 pages",
+    venue: "32nd ACM Symposium on Virtual Reality Software and Technology (VRST ’26), Sendai, Japan, November 16–18, 2026, ACM, 2 pages (Acceptance rate: 48%)",
     year: 2026,
     link: "https://doi.org/10.1145/3822517.3849962",
     eventDate: "2026-11-16",
@@ -372,6 +372,22 @@ export type PortfolioEntry = {
 };
 
 export const awards: PortfolioEntry[] = [
+  {
+    id: "vrst-2026-demo",
+    title: {
+      ja: "ACM VRST 2026 Best Demo Honorable Mention Award",
+      en: "ACM VRST 2026 — Best Demo Honorable Mention Award",
+    },
+    date: "2026-11",
+  },
+  {
+    id: "vrst-2026-student-volunteer",
+    title: {
+      ja: "ACM VRST 2026 Best Student Volunteer Award",
+      en: "ACM VRST 2026 — Best Student Volunteer Award",
+    },
+    date: "2026-11",
+  },
   {
     id: "ivrc-2025",
     title: {

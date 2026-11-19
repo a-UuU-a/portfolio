@@ -11,6 +11,7 @@
     "cv": "node scripts/build-cv.mjs",
     "cv:watch": "node scripts/build-cv.mjs --watch",
     "cv:check": "node scripts/build-cv.mjs --check",
+    "test": "node --test tests/*.test.cjs tests/*.test.mjs",
     "test:cv": "node --test tests/cv.test.mjs",
     "photos:ando": "node scripts/build-ando-collection.mjs",
     "test:ando": "node --test tests/ando.test.cjs tests/ando-collection.test.mjs",

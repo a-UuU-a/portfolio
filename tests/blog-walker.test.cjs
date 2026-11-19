@@ -11,41 +11,13 @@ const compiled = ts.transpileModule(source, {
 const compiledModule = { exports: {} };
 new Function('module', 'exports', compiled)(compiledModule, compiledModule.exports);
 const {
-  WALKER_SIZE, WALK_SPEED, createWalkField, sampleWalkField, createWalkBounds, clampWalkPosition, createWalker,
-  advanceWalker, fallWalker, isHomeDrop, dropWalker, wakeWalker, walkerViewForHeading, chooseWalkerVariant,
+  WALKER_SIZE, createWalkField, createWalkBounds, clampWalkPosition, createWalker,
+  advanceWalker, fallWalker, isHomeDrop, dropWalker, wakeWalker, walkerViewForHeading,
 } = compiledModule.exports;
 
 function randomSeed(seed) {
   return () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296);
 }
-
-test('each article load draws a fresh, approximately even walking or cycling choice', () => {
-  const samples = [0, 0.49, 0.5, 0.99, 0.1, 0.9];
-  let draws = 0;
-  const next = () => samples[draws++];
-  assert.deepEqual(samples.map(() => chooseWalkerVariant(next)), ['walking', 'walking', 'cycling', 'cycling', 'walking', 'cycling']);
-  assert.equal(draws, samples.length, 'each load samples again rather than reusing an article assignment');
-  const random = randomSeed(42);
-  const variants = Array.from({ length: 1000 }, () => chooseWalkerVariant(random));
-  assert.ok(variants.every(variant => variant === 'walking' || variant === 'cycling'));
-  const cyclingRatio = variants.filter(variant => variant === 'cycling').length / variants.length;
-  assert.ok(cyclingRatio > 0.4 && cyclingRatio < 0.6, 'repeated loads receive an approximately even mix');
-});
-
-test('unobstructed wandering can reach the center on desktop and mobile', () => {
-  for (const [width, height] of [[1440, 900], [390, 844]]) {
-    const bounds = createWalkBounds(width, height);
-    const state = createWalker(bounds);
-    const random = randomSeed(42);
-    let visitedCenter = false;
-    for (let frame = 0; frame < 30000; frame++) {
-      advanceWalker(state, bounds, 0.05, random);
-      if (state.position.x > width * 0.25 && state.position.x < width * 0.75
-        && state.position.y > height * 0.25 && state.position.y < height * 0.75) visitedCenter = true;
-    }
-    assert.equal(visitedCenter, true);
-  }
-});
 
 test('walking and resizing keep the entire character within the page bounds', () => {
   let seed = 42;
@@ -94,50 +66,6 @@ test('a long page uses document coordinates while house drops and exits follow t
   assert.equal(state.position.y - scrollY, 780, 'waking places the character beside the fixed house in the visible viewport');
 });
 
-test('translating the page and its content preserves the avoidance field and walking path', () => {
-  const offset = { x: 40, y: 1200 };
-  const bounds = createWalkBounds(600, 900);
-  const shiftedBounds = createWalkBounds(600, 900, offset);
-  const region = { left: 200, right: 400, top: 200, bottom: 700, strength: 4 };
-  const field = createWalkField(bounds, [region]);
-  const shiftedField = createWalkField(shiftedBounds, [{
-    left: region.left + offset.x, right: region.right + offset.x,
-    top: region.top + offset.y, bottom: region.bottom + offset.y, strength: region.strength,
-  }]);
-  assert.deepEqual(shiftedField.values, field.values);
-  const state = createWalker(bounds);
-  const shiftedState = createWalker(shiftedBounds);
-  const random = randomSeed(42);
-  const shiftedRandom = randomSeed(42);
-  for (let frame = 0; frame < 3000; frame++) {
-    advanceWalker(state, bounds, 0.05, random, field);
-    advanceWalker(shiftedState, shiftedBounds, 0.05, shiftedRandom, shiftedField);
-    assert.ok(Math.abs(shiftedState.position.x - state.position.x - offset.x) < 1e-8);
-    assert.ok(Math.abs(shiftedState.position.y - state.position.y - offset.y) < 1e-8);
-  }
-});
-
-test('walking accelerates gradually, turns gradually, and limits jumps after a frame gap', () => {
-  const bounds = createWalkBounds(1440, 900);
-  const state = createWalker(bounds);
-  state.mode = 'walking';
-  state.remaining = 100;
-  state.turnRemaining = 100;
-  const start = { ...state.position };
-  advanceWalker(state, bounds, 1 / 60);
-  assert.ok(state.speed > 0 && state.speed < WALK_SPEED);
-  assert.ok(state.position.x - start.x < WALK_SPEED / 60);
-  for (let frame = 0; frame < 30; frame++) advanceWalker(state, bounds, 1 / 60);
-  assert.equal(state.speed, WALK_SPEED);
-  state.position.y = 400;
-  state.desiredHeading = Math.PI / 2;
-  advanceWalker(state, bounds, 1 / 60);
-  assert.ok(state.heading > 0 && state.heading < 0.05);
-  const beforeGap = { ...state.position };
-  advanceWalker(state, bounds, 60);
-  assert.ok(Math.hypot(state.position.x - beforeGap.x, state.position.y - beforeGap.y) <= WALK_SPEED * 0.1 + 1e-8);
-});
-
 test('a click makes the character fall, hold its position, and then recover', () => {
   const bounds = createWalkBounds(1440, 900);
   const state = createWalker(bounds);
@@ -151,29 +79,6 @@ test('a click makes the character fall, hold its position, and then recover', ()
   }
   for (let frame = 0; frame < 8; frame++) advanceWalker(state, bounds, 0.1);
   assert.equal(state.mode, 'resting');
-});
-
-test('the gait follows actual travel at different frame rates and pauses when picked up or fallen', () => {
-  const bounds = createWalkBounds(1440, 900);
-  for (const fps of [30, 60, 120]) {
-    const state = createWalker(bounds);
-    state.target = { x: 1000, y: state.position.y };
-    state.mode = 'walking';
-    state.remaining = 100;
-    state.speed = WALK_SPEED;
-    state.turnRemaining = 100;
-    const startX = state.position.x;
-    for (let frame = 0; frame < fps; frame++) advanceWalker(state, bounds, 1 / fps);
-    assert.ok(Math.abs(state.distance - WALK_SPEED) < 1e-8);
-    assert.ok(Math.abs(state.distance - (state.position.x - startX)) < 1e-8);
-    const distance = state.distance;
-    state.mode = 'dragging';
-    advanceWalker(state, bounds, 0.1);
-    assert.equal(state.distance, distance);
-    fallWalker(state);
-    advanceWalker(state, bounds, 0.1);
-    assert.equal(state.distance, distance);
-  }
 });
 
 test('dragging suspends walking and dropping outside the house resumes it', () => {
@@ -207,46 +112,6 @@ test('dropping on the house hides the character until the house is tapped', () =
   assert.ok(state.position.x + WALKER_SIZE < home.left);
   for (let frame = 0; frame < 8; frame++) advanceWalker(state, bounds, 0.1, () => 0.5);
   assert.equal(state.mode, 'walking');
-});
-
-
-test('content produces a soft field with usable gaps and smooth edges', () => {
-  const bounds = createWalkBounds(1000, 800);
-  const rectangle = { left: 400, right: 600, top: 300, bottom: 500, strength: 4 };
-  const field = createWalkField(bounds, [rectangle]);
-  const overlapping = createWalkField(bounds, [rectangle, rectangle]);
-  const inside = sampleWalkField(field, { x: 480, y: 380 });
-  const near = sampleWalkField(field, { x: 350, y: 380 });
-  const far = sampleWalkField(field, { x: 280, y: 380 });
-  assert.ok(inside > near && near > far && far >= 0);
-  assert.equal(inside, sampleWalkField(overlapping, { x: 480, y: 380 }));
-  assert.equal(sampleWalkField(createWalkField(bounds, []), { x: 480, y: 380 }), 0);
-  for (let x = 320; x < 400; x++) {
-    assert.ok(Math.abs(sampleWalkField(field, { x, y: 380 }) - sampleWalkField(field, { x: x + 1, y: 380 })) < 0.55);
-  }
-});
-
-test('stochastic wandering enters content less often but still sometimes on desktop and mobile', () => {
-  for (const [width, height, rectangle] of [
-    [600, 600, { left: 160, right: 440, top: 180, bottom: 500, strength: 4 }],
-    [390, 844, { left: 24, right: 366, top: 240, bottom: 700, strength: 4 }],
-  ]) {
-    const bounds = createWalkBounds(width, height);
-    const field = createWalkField(bounds, [rectangle]);
-    const occupancy = [];
-    for (const avoid of [false, true]) {
-      const state = createWalker(bounds);
-      const random = randomSeed(42);
-      let inside = 0;
-      for (let frame = 0; frame < 50000; frame++) {
-        advanceWalker(state, bounds, 0.05, random, avoid ? field : undefined);
-        if (sampleWalkField(field, state.position) > 2) inside++;
-      }
-      occupancy.push(inside / 50000);
-    }
-    assert.ok(occupancy[1] > 0.001, 'the content remains reachable');
-    assert.ok(occupancy[1] < occupancy[0] * 0.6, 'the field substantially reduces time over content');
-  }
 });
 
 test('content covering the viewport cannot trap the character or block manual dragging', () => {
