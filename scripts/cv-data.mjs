@@ -84,6 +84,7 @@ export function makeCvData(portfolio, asOf, website) {
         ...headings, id,
         publications: [...group.publications].sort((a, b) => b.year - a.year).map((pub, index) => ({
           title: pub.title, authors: authorParts(pub.authors), venue: pub.venue, link: pub.link || "",
+          authorNote: pub.authorNote?.en || "",
           number: index + 1,
           japanese: group.language === "ja",
           upcoming: Boolean(pub.eventDate && pub.eventDate > asOf),

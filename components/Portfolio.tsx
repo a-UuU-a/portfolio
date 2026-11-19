@@ -95,7 +95,8 @@ function PublicationList({ pubs, language, locale }: { pubs: Publication[]; lang
             <span lang={language}>[{sorted.length - index}] {pub.title}</span>
             {locale === "en" && language === "ja" && <span className="ml-2 text-sm text-gray-500">(in Japanese)</span>}
           </h4>
-          <p lang={language} className="text-gray-600 font-light mb-4" dangerouslySetInnerHTML={{ __html: pub.authors }} />
+          <p lang={language} className={`text-gray-600 font-light ${pub.authorNote ? "mb-2" : "mb-4"}`} dangerouslySetInnerHTML={{ __html: pub.authors }} />
+          {pub.authorNote && <p className="text-sm text-gray-500 font-light mb-4">{pub.authorNote[locale]}</p>}
           <div className="flex items-start justify-between gap-4">
             <span lang={language} className="text-sm text-gray-500 font-light">{pub.venue}</span>
             {pub.link && <a href={pub.link} target="_blank" rel="noopener noreferrer" aria-label={`${portfolioCopy[locale].publicationLink}: ${pub.title}`} className="shrink-0"><ExternalLink size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" /></a>}

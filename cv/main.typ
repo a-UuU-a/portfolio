@@ -71,6 +71,10 @@
       #for part in pub.authors {
         if part.self { strong(part.text) } else { part.text }
       }#text(".")#h(0.25em, weak: true)#if pub.link != "" { link(pub.link, pub.title) } else { pub.title }#text(".")#h(0.25em, weak: true)#if pub.japanese { pub.venue } else { emph(pub.venue) }
+      #if pub.authorNote != "" [
+        #v(4pt)
+        #text(9pt, fill: muted)[#pub.authorNote]
+      ]
       #if pub.upcoming [
         #v(4pt)
         #text(9pt, fill: muted)[#emph[Upcoming presentation]]

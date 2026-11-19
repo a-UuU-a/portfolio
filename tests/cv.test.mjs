@@ -16,6 +16,7 @@ test("the shared source retains every research publication, author, and Japanese
       assert.equal(rendered.authors.map((part) => part.text).join(""), pub.authors.replace(/<[^>]*>/g, ""));
       assert.equal(rendered.japanese, source.language === "ja");
       assert.equal(rendered.link, pub.link || "");
+      assert.equal(rendered.authorNote, pub.authorNote?.en || "");
     }
   }
   assert.deepEqual(authorParts('<strong><u>村上 聡</u></strong>，Smith & Jones'), [

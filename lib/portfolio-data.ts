@@ -17,6 +17,7 @@ export const profile = {
 export type Publication = {
   title: string;
   authors: string;
+  authorNote?: LocalizedText;
   venue: string;
   year: number;
   link?: string;
@@ -109,8 +110,12 @@ export const intlRefereedDemosPosters: Publication[] = [
   {
     title: "AmbiXR: Adaptive Visual Syntax for Resolving Ambiguous Instructions in LLM-Assisted XR Authoring",
     authors:
-      "<strong><u>Akira Murakami</u></strong>, Kodai Hatakeyama, Ryo Ooka, Kazuyuki Fujita, Guanghan Zhao, and Yoshifumi Kitamura",
-    venue: "32nd ACM Symposium on Virtual Reality Software and Technology (VRST ’26), Sendai, Japan, November 16–18, 2026, ACM, 2 pages (Acceptance rate: 48%)",
+      "<strong><u>Akira Murakami</u></strong><sup>*</sup>, Kodai Hatakeyama<sup>*</sup>, Ryo Ooka<sup>*</sup>, Kazuyuki Fujita, Guanghan Zhao, and Yoshifumi Kitamura",
+    authorNote: {
+      ja: "* equal contribution．",
+      en: "* contributed equally.",
+    },
+    venue: "Proceedings of the 32nd ACM Symposium on Virtual Reality Software and Technology (VRST ’26), Sendai, Japan, Article 179, pp. 1–3, 2026 (Acceptance rate: 48%)",
     year: 2026,
     link: "https://doi.org/10.1145/3822517.3849962",
     eventDate: "2026-11-16",
@@ -285,6 +290,21 @@ export type Work = {
 };
 
 export const works: Work[] = [
+  {
+    id: 6,
+    title: "AmbiXR",
+    image: "/works/ambixr.png",
+    imageFit: "contain",
+    description: {
+      ja: "LLMを用いたXRオーサリングで，曖昧な指示を適応的な視覚表現によって明確化するシステム．",
+      en: "An LLM-assisted XR authoring system that uses adaptive visual syntax to resolve ambiguous instructions.",
+    },
+    year: 2026,
+    tags: ["XR", "LLM", "Human-AI Interaction"],
+    link: "https://youtu.be/2hukgXpCj9U",
+    linkLabel: { ja: "動画を見る", en: "Watch video" },
+    openInNewTab: true,
+  },
   {
     id: 5,
     title: "OrigamiWalls",
