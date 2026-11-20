@@ -14,7 +14,13 @@ export const profile = {
   },
 };
 
-export type Publication = {
+export type TaggedContent = {
+  tags?: readonly string[];
+  relatedLabel?: string | LocalizedText;
+};
+
+export type Publication = TaggedContent & {
+  id: string;
   title: string;
   authors: string;
   authorNote?: LocalizedText;
@@ -27,6 +33,7 @@ export type Publication = {
 // 各カテゴリごとの論文データ
 export const intlJournals: Publication[] = [
   {
+    id: "dice-games-journal-2020",
     title:
       "Mathematical Games of Dice - A Research Based Calculations Using Computer Algebra Systems",
     authors:
@@ -37,6 +44,7 @@ export const intlJournals: Publication[] = [
     link: "https://solidstatetechnology.us/index.php/JSST/article/view/749",
   },
   {
+    id: "bogus-nim-journal-2020",
     title: "A Variant of Bogus Nim – Experimental Mathematics Approach",
     authors:
       "Ryohei Miyadera, Nazuki Terakawa, Keito Tanemura, <strong><u>Akira Murakami</u></strong>, Mariko Kashiwagi, Ryuhei Utsuhara",
@@ -48,6 +56,7 @@ export const intlJournals: Publication[] = [
 ];
 export const domesticJournals: Publication[] = [
   {
+    id: "dice-with-different-faces-2020",
     title: "面数が異なるサイコロを用いたサイコロゲームに関する研究",
     authors:
       "鈴木利菜，<strong><u>村上 聡</u></strong>，寺川渚月，坂本悠輔，宮寺良平，川上さくら",
@@ -57,7 +66,10 @@ export const domesticJournals: Publication[] = [
 ];
 export const intlConferences: Publication[] = [
   {
+    id: "origamiwalls",
     title: "OrigamiWalls: A Shape-Changing Robotic Partitioning System for Diverse Spatial Reconfigurations",
+    tags: ["OrigamiWalls", "DIS2026"],
+    relatedLabel: "OrigamiWalls",
     authors:
       "<strong><u>Akira Murakami</u></strong>, Kazuyuki Fujita, Yuki Onishi, and Yoshifumi Kitamura",
     venue: "Proceedings of the 2026 Designing Interactive Systems Conference (DIS ’26), Singapore, pp. 4559–4576, 2026 (Acceptance rate: 21%)",
@@ -65,6 +77,7 @@ export const intlConferences: Publication[] = [
     link: "https://doi.org/10.1145/3800645.3812904",
   },
   {
+    id: "dice-games-icm-2020",
     title: "Mathematical Games of Dice - A Research Based Calculations Using Computer Algebra Systems",
     authors:
       "Ryohei Miyadera, <strong><u>Akira Murakami</u></strong>, Nazuki Terakawa, Keito Tanemura, Mao Fujino, Hisayoshi Sakahira, Masanori Fukui",
@@ -73,6 +86,7 @@ export const intlConferences: Publication[] = [
     link: "https://www.researchgate.net/profile/Khar-Ng-3/publication/347785430_Proceedings_iCon_MESSSH20/links/5fe3e22b92851c13feb48b4b/Proceedings-iCon-MESSSH20.pdf#page=71",
   },
   {
+    id: "bogus-nim-icm-2020",
     title: "A Variant of Bogus Nim - Experimental Mathematics Approach",
     authors:
       "Ryohei Miyadera, Masanori Fukui, Nazuki Terakawa, Keito Tanemura, <strong><u>Akira Murakami</u></strong>, Mariko Kashiwagi, Ryuhei Utsuhara",
@@ -82,6 +96,7 @@ export const intlConferences: Publication[] = [
     link: "https://www.researchgate.net/profile/Khar-Ng-3/publication/347785430_Proceedings_iCon_MESSSH20/links/5fe3e22b92851c13feb48b4b/Proceedings-iCon-MESSSH20.pdf#page=72",
   },
   {
+    id: "wythoff-with-a-pass-2019",
     title: "Wythoff’s Game with a Pass",
     authors:
       "Ryohei Miyadera, Mariko Kashiwagi, Masanori Fukui, <strong><u>Akira Murakami</u></strong>, Keito Tanemura, Itsuki Kitagawa, Kazuya Hiramatsu and Shintaro Kaiomto",
@@ -90,6 +105,7 @@ export const intlConferences: Publication[] = [
     link: "http://www.jcdcgg.u-tokai.ac.jp/JCDCG3_2019_abstracts_v1.pdf",
   },
   {
+    id: "rugby-nim-2018",
     title: "“Rugby Nim” that is a Variant of “Sliding”",
     authors:
       "Ryohei Miyadera, Mariko Kashiwagi, Michitada Hayashi, Sintarou Kaimoto, Keito Tanemura, <strong><u>Akira Murakami</u></strong>, Ryuhei Utsuhara",
@@ -98,6 +114,7 @@ export const intlConferences: Publication[] = [
     link: "https://drive.google.com/file/d/1RFaXEdKk5TUHc1QePWsdplOR7etRZOV1/view",
   },
   {
+    id: "sliding-with-a-push-2018",
     title: "“Sliding With a Push” that is a Variant Of “Sliding”",
     authors:
       "Ryohei Miyadera, Mariko Kashiwagi, Nazuki Terakawa, Syouta Masuda, Keito Tanemura, Sintarou Kaimoto, Ryuhei Utsuhara, <strong><u>Akira Murakami</u></strong>",
@@ -108,7 +125,10 @@ export const intlConferences: Publication[] = [
 ];
 export const intlRefereedDemosPosters: Publication[] = [
   {
+    id: "ambixr",
     title: "AmbiXR: Adaptive Visual Syntax for Resolving Ambiguous Instructions in LLM-Assisted XR Authoring",
+    tags: ["AmbiXR", "VRST2026"],
+    relatedLabel: "AmbiXR",
     authors:
       "<strong><u>Akira Murakami</u></strong><sup>*</sup>, Kodai Hatakeyama<sup>*</sup>, Ryo Ooka<sup>*</sup>, Kazuyuki Fujita, Guanghan Zhao, and Yoshifumi Kitamura",
     authorNote: {
@@ -123,6 +143,8 @@ export const intlRefereedDemosPosters: Publication[] = [
 ];
 export const domesticConferences: Publication[] = [
   {
+    id: "gaze-based-vibrotactile-feedback-2025",
+    tags: ["VRSJ2025"],
     title:
       "複数の音源対象を持つコンテンツの視聴における視線に応じた振動触覚提示手法",
     authors:
@@ -132,6 +154,8 @@ export const domesticConferences: Publication[] = [
     link: "https://conference.vrsj.org/ac2025/program/doc/3E2-06.pdf",
   },
   {
+    id: "mame-page-vrsj-2025",
+    tags: ["VRSJ2025"],
     title:
       "豆|頁：なんかきられてももどるやつ",
     authors:
@@ -141,6 +165,8 @@ export const domesticConferences: Publication[] = [
     link: "https://conference.vrsj.org/ac2025/program/doc/IVRC-05.pdf",
   },
   {
+    id: "origami-partition-wiss-2024",
+    tags: ["WISS2024"],
     title: "折紙構造を用いた自走式・形態変化パーティションデバイス",
     authors: "<strong><u>村上 聡</u></strong>，藤田 和之，北村 喜文",
     venue:
@@ -149,6 +175,7 @@ export const domesticConferences: Publication[] = [
     link: "https://www.wiss.org/WISS2024Proceedings/data/demo//2-B08.pdf",
   },
   {
+    id: "creativity-through-game-variants-2019",
     title: "ゲーム・パズルの変形・改良に着目した創造性発揮プロセスの実態把握",
     authors:
       "福井 昌則，柏木 麻理子，寺本 雅治，<strong><u>村上 聡</u></strong>，種村 圭依人，宮寺 良平，平嶋 宗",
@@ -157,6 +184,7 @@ export const domesticConferences: Publication[] = [
     link: "https://www.gameamusementsociety.org/article.php?story=GameEdu_12",
   },
   {
+    id: "dice-games-gas-2019",
     title: "サイコロゲームの数学",
     authors:
       "寺川 渚月，<strong><u>村上 聡</u></strong>，柏木 麻里子，寺本 雅治，坂本 悠輔，宮寺 良平，北川 一希，平松 和也",
@@ -165,6 +193,7 @@ export const domesticConferences: Publication[] = [
     link: "https://www.gameamusementsociety.org/staticpages/index.php?page=GAS_18th_program",
   },
   {
+    id: "wythoff-limited-rooks-2019",
     title: "Wythoff のゲームの変種-制限付きの 2 つの Rook",
     authors:
       "寺川 渚月，<strong><u>村上 聡</u></strong>，宮寺 良平，北川 一希，平松 和也，青山 あいほ，末續 鴻輝",
@@ -175,6 +204,8 @@ export const domesticConferences: Publication[] = [
 ];
 export const otherWritings: Publication[] = [
   {
+    id: "dis-2026-report",
+    tags: ["DIS2026"],
     title: "学会参加報告 DIS 2026",
     authors: "<strong><u>村上 聡</u></strong>",
     venue: "日本バーチャルリアリティ学会 学会参加報告，2026年7月27日",
@@ -276,7 +307,7 @@ export const experiences: Experience[] = [
   },
 ];
 
-export type Work = {
+export type Work = TaggedContent & {
   id: number;
   title: string;
   description: LocalizedText;
@@ -286,13 +317,13 @@ export type Work = {
   link: string;
   linkLabel?: LocalizedText;
   openInNewTab?: boolean;
-  tags: string[];
 };
 
 export const works: Work[] = [
   {
     id: 6,
     title: "AmbiXR",
+    tags: ["AmbiXR", "VRST2026", "WISS2026", "MiTOHOKU2026"],
     image: "/works/ambixr.png",
     imageFit: "contain",
     description: {
@@ -300,7 +331,6 @@ export const works: Work[] = [
       en: "An LLM-assisted XR authoring system that uses adaptive visual syntax to resolve ambiguous instructions.",
     },
     year: 2026,
-    tags: ["XR", "LLM", "Human-AI Interaction"],
     link: "https://youtu.be/2hukgXpCj9U",
     linkLabel: { ja: "動画を見る", en: "Watch video" },
     openInNewTab: true,
@@ -308,6 +338,7 @@ export const works: Work[] = [
   {
     id: 5,
     title: "OrigamiWalls",
+    tags: ["OrigamiWalls", "DIS2026", "WISS2024"],
     image: "/works/origamiwalls.png",
     imageFit: "contain",
     description: {
@@ -315,7 +346,6 @@ export const works: Work[] = [
       en: "A shape-changing robotic partition system based on origami structures. It transitions between folded, curved, and flat forms to support diverse spatial layouts.",
     },
     year: 2026,
-    tags: ["HCI", "Robotics", "Shape-Changing Interfaces"],
     link: "https://www.youtube.com/watch?v=AJCRrbY47VU",
     linkLabel: { ja: "動画を見る", en: "Watch video" },
     openInNewTab: true,
@@ -329,52 +359,51 @@ export const works: Work[] = [
       en: "A photographic record of Tadao Ando’s architecture. Explore places and photographs through an interactive globe.",
     },
     year: 2026,
-    tags: ["Photography", "Architecture", "Interactive Globe"],
     link: "/ando/",
     openInNewTab: true,
   },
   {
     id: 1,
     title: "Rhizome",
+    tags: ["Rhizome", "MiTOHOKU2024"],
     image: "/works/rhizome.png",
     description: {
       ja: "Rhizomeは会話内容をグラフネットワーク形式で自動で要約してくれる会議サポートツールです．",
       en: "A meeting support tool that automatically summarizes conversations as graph networks.",
     },
     year: 2024,
-    tags: ["Web App", "minutes", "Graph Network"],
     link: "https://github.com/Set022525/Rhizome",
     openInNewTab: true,
   },
   {
     id: 2,
     title: "DigLike",
+    tags: ["JPHACKS2022"],
     image: "/works/JPHACKS2022.png",
     description: {
       ja: "DigLikeはTwitterのいいねを自動で整理し，空き時間に聞けるPodcastに変換するアプリです．",
       en: "An app that organizes Twitter likes and turns them into podcasts to listen to in your spare time.",
     },
     year: 2022,
-    tags: ["Web App", "Podcast", "NLP"],
     link: "https://github.com/jphacks/A_2205",
     openInNewTab: true,
   },
   {
     id: 3,
     title: "Morbido",
+    tags: ["IdeaCon2021"],
     image: "/works/morbido.png",
     description: {
       ja: "Mobidoは導電性繊維を用いたふわふわなセンサーです．",
       en: "A soft, fluffy sensor made with conductive fibers.",
     },
     year: 2021,
-    tags: ["Electronics", "Fabrication", "Sensor"],
     link: "https://www.tohoku.ac.jp/japanese/2021/12/press20211222-01-idea.html",
     openInNewTab: true,
   },
 ];
 
-export type PortfolioEntry = {
+export type PortfolioEntry = TaggedContent & {
   id: string;
   title: LocalizedText;
   // Optional concise English wording for the CV; other entries use the website copy.
@@ -394,6 +423,8 @@ export type PortfolioEntry = {
 export const awards: PortfolioEntry[] = [
   {
     id: "vrst-2026-demo",
+    tags: ["AmbiXR", "VRST2026"],
+    relatedLabel: "Best Demo Honorable Mention",
     title: {
       ja: "ACM VRST 2026 Best Demo Honorable Mention Award",
       en: "ACM VRST 2026 — Best Demo Honorable Mention Award",
@@ -402,6 +433,8 @@ export const awards: PortfolioEntry[] = [
   },
   {
     id: "vrst-2026-student-volunteer",
+    tags: ["VRST2026"],
+    relatedLabel: "Best Student Volunteer Award",
     title: {
       ja: "ACM VRST 2026 Best Student Volunteer Award",
       en: "ACM VRST 2026 — Best Student Volunteer Award",
@@ -410,6 +443,7 @@ export const awards: PortfolioEntry[] = [
   },
   {
     id: "ivrc-2025",
+    tags: ["VRSJ2025"],
     title: {
       ja: "Interverse Virtual Reality Challenge (IVRC) 2025「豆|頁：なんかきられてももどるやつ」",
       en: "Interverse Virtual Reality Challenge (IVRC) 2025 — 「豆|頁：なんかきられてももどるやつ」",
@@ -445,12 +479,15 @@ export const awards: PortfolioEntry[] = [
   },
   {
     id: "hack-u-2022",
+    tags: ["Rhizome"],
+    relatedLabel: { ja: "Open Hack U 最優秀賞", en: "Open Hack U Grand Prize" },
     title: { ja: "Open Hack U 2022 Spring ONLINE 最優秀賞", en: "Open Hack U 2022 Spring ONLINE — Grand Prize" },
     date: "2022",
     links: [{ href: "https://hacku.yahoo.co.jp/hacku2022spring_online/", label: { ja: "コンテスト公式ページ", en: "Contest website" } }],
   },
   {
     id: "business-2021",
+    tags: ["IdeaCon2021"],
     title: { ja: "東北大学ビジネスアイデアコンテスト 2021 最優秀賞", en: "Tohoku University Business Idea Contest 2021 — Grand Prize" },
     date: "2021",
     links: [{ href: "https://www.tohoku.ac.jp/japanese/2021/12/press20211222-01-idea.html", label: { ja: "受賞のお知らせ", en: "Award announcement" } }],
@@ -492,6 +529,7 @@ export const awards: PortfolioEntry[] = [
 export const selectedPrograms: PortfolioEntry[] = [
   {
     id: "mitohoku-4",
+    tags: ["MiTOHOKU2026"],
     title: {
       ja: "経済産業省 未踏的な地方の若手人材発掘育成支援事業補助金AKATSUKIプロジェクト - MiTOHOKU Program 4期採択",
       en: "Selected for the 4th cohort of the MiTOHOKU Program, METI AKATSUKI Project",
@@ -513,6 +551,7 @@ export const selectedPrograms: PortfolioEntry[] = [
   },
   {
     id: "mitohoku-2",
+    tags: ["MiTOHOKU2024"],
     title: {
       ja: "経済産業省 未踏的な地方の若手人材発掘育成支援事業補助金AKATSUKIプロジェクト - MiTOHOKU Program 2期採択",
       en: "Selected for the 2nd cohort of the MiTOHOKU Program, METI AKATSUKI Project",
@@ -532,12 +571,15 @@ const seameoContributors = [
 export const service: PortfolioEntry[] = [
   {
     id: "vrst-2026",
+    tags: ["VRST2026"],
+    relatedLabel: { ja: "VRST 2026 学生ボランティア", en: "VRST 2026 Student Volunteer" },
     title: { ja: "ACM VRST 2026 Student Volunteer", en: "ACM VRST 2026 — Student Volunteer" },
     date: "2026",
     eventDate: "2026-11-16",
   },
   {
     id: "chi-symposium-2025",
+    tags: ["CHI2025"],
     title: {
       ja: "市民公開講座 / 横浜市MICE次世代育成事業「CHI 2025 シンポジウム」学生委員",
       en: "CHI 2025 Symposium — Student Committee Member (Public Lecture / Yokohama MICE Next Generation Development Project)",
@@ -547,6 +589,7 @@ export const service: PortfolioEntry[] = [
   },
   {
     id: "wiss-2024",
+    tags: ["WISS2024"],
     title: { ja: "WISS2024 学生ボランティア", en: "WISS 2024 — Student Volunteer" },
     date: "2024",
   },

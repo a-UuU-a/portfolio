@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Award, BookOpen, Briefcase, ChevronDown, ExternalLink, FileText, FolderOpen, GraduationCap, Menu, MessageSquare, NotebookPen, Star, Users, User, X } from "lucide-react";
+import { Briefcase, ChevronDown, ExternalLink, FileText, GraduationCap, Menu, MessageSquare, NotebookPen, User, X } from "lucide-react";
 import { FaFacebook, FaGithub, FaGoogleScholar, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import P5Sketch from "./P5Sketch";
 import GlitchImage from "./GlitchImage";
+import { publicationsInPageOrder, RelatedContentFan, relatedSections, RelatedTags, type TagControls } from "./PortfolioRelated";
 import { portfolioSketch } from "./portfolio-sketch";
 import { advisors, awards, education, experiences, profile, publicationGroups, selectedPrograms, service, works, type PortfolioEntry, type Publication, type Work } from "@/lib/portfolio-data";
 import { formatPortfolioDate, formatPortfolioPeriod, portfolioAssetPath, portfolioCopy, portfolioPath, type Locale } from "@/lib/portfolio-i18n";
@@ -15,11 +16,11 @@ const sections = [
   { id: "about", label: "About", icon: User },
   { id: "education", label: "Education", icon: GraduationCap },
   { id: "work", label: "Experience", icon: Briefcase },
-  { id: "publications", label: "Publications", icon: BookOpen },
-  { id: "works", label: "Works", icon: FolderOpen },
-  { id: "awards", label: "Awards", icon: Award },
-  { id: "selected-programs", label: "Selected Programs", icon: Star },
-  { id: "service", label: "Service", icon: Users },
+  { id: "publications", ...relatedSections.publications },
+  { id: "works", ...relatedSections.works },
+  { id: "awards", ...relatedSections.awards },
+  { id: "selected-programs", ...relatedSections["selected-programs"] },
+  { id: "service", ...relatedSections.service },
   { id: "contact", label: "Contact", icon: MessageSquare },
 ];
 
@@ -52,7 +53,8 @@ function LanguageSwitcher({ locale }: { locale: Locale }) {
   );
 }
 
-function WorkCard({ work, locale }: { work: Work; locale: Locale }) {
+function WorkCard({ work, locale, tagControls }: { work: Work; locale: Locale; tagControls: TagControls }) {
+  const itemId = `work-${work.id}` as const;
   const copy = portfolioCopy[locale];
   const internal = work.link.startsWith("/");
   const linkedCover = internal || work.openInNewTab;
@@ -64,14 +66,12 @@ function WorkCard({ work, locale }: { work: Work; locale: Locale }) {
     </div>
   );
   return (
-    <div className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+    <div id={itemId} tabIndex={-1} data-related-target className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
       {linkedCover ? <Link href={work.link} target={linkTarget} rel={linkRel} aria-label={`${copy.viewWork}: ${work.title}`}>{cover}</Link> : cover}
       <div className="p-6">
         <h3 className="text-lg font-light mb-2">{linkedCover ? <Link href={work.link} target={linkTarget} rel={linkRel}>{work.title}</Link> : work.title}</h3>
         <p className="text-gray-600 font-light text-sm mb-4">{work.description[locale]}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {work.tags.map((tag) => <span key={tag} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-light">{tag}</span>)}
-        </div>
+        <RelatedTags tags={work.tags} className="mb-4" {...tagControls} />
         <div className="flex items-center justify-between">
           <span className="text-xs text-gray-500 font-light">{work.year}</span>
           {internal ? (
@@ -85,12 +85,18 @@ function WorkCard({ work, locale }: { work: Work; locale: Locale }) {
   );
 }
 
-function PublicationList({ pubs, language, locale }: { pubs: Publication[]; language: Locale; locale: Locale }) {
-  const sorted = [...pubs].sort((a, b) => b.year - a.year);
+function PublicationList({ pubs, language, locale, tagControls }: { pubs: Publication[]; language: Locale; locale: Locale; tagControls: TagControls }) {
+  const sorted = publicationsInPageOrder(pubs);
   return (
     <div className="space-y-8 mb-12">
       {sorted.map((pub, index) => (
-        <div key={`${pub.title}-${index}`} className="group hover:bg-gray-100 p-6 rounded-lg transition-all duration-300">
+        <div
+          key={pub.id}
+          id={`publication-${pub.id}`}
+          tabIndex={-1}
+          data-related-target
+          className="group hover:bg-gray-100 p-6 rounded-lg transition-all duration-300"
+        >
           <h4 className="text-lg font-light mb-2">
             <span lang={language}>[{sorted.length - index}] {pub.title}</span>
             {locale === "en" && language === "ja" && <span className="ml-2 text-sm text-gray-500">(in Japanese)</span>}
@@ -101,17 +107,25 @@ function PublicationList({ pubs, language, locale }: { pubs: Publication[]; lang
             <span lang={language} className="text-sm text-gray-500 font-light">{pub.venue}</span>
             {pub.link && <a href={pub.link} target="_blank" rel="noopener noreferrer" aria-label={`${portfolioCopy[locale].publicationLink}: ${pub.title}`} className="shrink-0"><ExternalLink size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" /></a>}
           </div>
+          <RelatedTags tags={pub.tags} className="mt-3" {...tagControls} />
         </div>
       ))}
     </div>
   );
 }
 
-function EntryList({ entries, locale }: { entries: PortfolioEntry[]; locale: Locale }) {
+function EntryList({ entries, locale, tagControls }: { entries: PortfolioEntry[]; locale: Locale; tagControls: TagControls }) {
   return (
     <ul className="space-y-8 text-gray-600 font-light leading-relaxed">
       {entries.map((entry) => (
-        <li key={entry.id} data-entry-id={entry.id} className="border-l-2 border-gray-200 pl-6">
+        <li
+          key={entry.id}
+          id={`entry-${entry.id}`}
+          tabIndex={-1}
+          data-entry-id={entry.id}
+          data-related-target
+          className="border-l-2 border-gray-200 pl-6"
+        >
           {(entry.date || entry.period) && (
             <p className="text-sm text-gray-500 mb-2">
               {entry.period ? formatPortfolioPeriod(entry.period, locale) : formatPortfolioDate(entry.date!, locale)}
@@ -120,6 +134,7 @@ function EntryList({ entries, locale }: { entries: PortfolioEntry[]; locale: Loc
             </p>
           )}
           <h3 className="text-lg text-gray-800 font-light">{entry.title[locale]}</h3>
+          <RelatedTags tags={entry.tags} className="mt-2" {...tagControls} />
           {entry.funding && <p lang="en" className="mt-2 text-sm text-gray-500">{entry.funding}</p>}
           {entry.details && <ul className="mt-3 space-y-2 list-disc list-outside pl-5">{entry.details.map((detail, index) => <li key={index}>{detail[locale]}</li>)}</ul>}
           {entry.contributors && <p lang={entry.contributorLanguage} className="mt-3 text-sm text-gray-500">{entry.contributors.map((name, index) => <span key={name}>{index > 0 && ", "}{name === "Akira Murakami" || name === "村上 聡" ? <strong className="font-normal">{name}</strong> : name}</span>)}</p>}
@@ -134,6 +149,25 @@ export default function Portfolio({ locale }: { locale: Locale }) {
   const copy = portfolioCopy[locale];
   const [activeSection, setActiveSection] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const hubRef = useRef<HTMLButtonElement>(null);
+  const tagTrigger = useRef<HTMLButtonElement | null>(null);
+
+  const clearTag = () => {
+    if (document.activeElement === hubRef.current) tagTrigger.current?.focus({ preventScroll: true });
+    setActiveTag(null);
+  };
+
+  const toggleTag: TagControls["toggleTag"] = (tag, event) => {
+    tagTrigger.current = event.currentTarget;
+    if (activeTag === tag) {
+      clearTag();
+      return;
+    }
+    setActiveTag(tag);
+    if (event.detail === 0) requestAnimationFrame(() => hubRef.current?.focus({ preventScroll: true }));
+  };
+  const tagControls = { activeTag, toggleTag };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -155,7 +189,10 @@ export default function Portfolio({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-thin overflow-x-hidden">
+    <div
+      className="min-h-screen bg-white text-gray-900 font-thin overflow-x-hidden"
+      onKeyDown={event => { if (event.key === "Escape" && activeTag && !isMenuOpen) clearTag(); }}
+    >
       <nav aria-label={copy.menu} className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center gap-6">
           <Link href={portfolioPath(locale)} className="font-light text-xl tracking-wide shrink-0">UuU</Link>
@@ -215,14 +252,14 @@ export default function Portfolio({ locale }: { locale: Locale }) {
           </div>
         </Section>
 
-        <Section id="publications" title="Publications" shaded>
-          {publicationGroups.map((group) => <div key={group.id}><h3 className="text-xl font-light mb-6">{copy.publicationHeadings[group.id]}</h3><PublicationList pubs={group.publications} language={group.language} locale={locale} /></div>)}
+        <Section id="publications" title={relatedSections.publications.label} shaded>
+          {publicationGroups.map((group) => <div key={group.id}><h3 className="text-xl font-light mb-6">{copy.publicationHeadings[group.id]}</h3><PublicationList pubs={group.publications} language={group.language} locale={locale} tagControls={tagControls} /></div>)}
         </Section>
 
-        <Section id="works" title="Works" wide><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{works.map((work) => <WorkCard key={work.id} work={work} locale={locale} />)}</div></Section>
-        <Section id="awards" title="Awards" shaded><EntryList entries={awards} locale={locale} /></Section>
-        <Section id="selected-programs" title="Selected Programs"><EntryList entries={selectedPrograms} locale={locale} /></Section>
-        <Section id="service" title="Service" shaded><EntryList entries={service} locale={locale} /></Section>
+        <Section id="works" title={relatedSections.works.label} wide><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{works.map((work) => <WorkCard key={work.id} work={work} locale={locale} tagControls={tagControls} />)}</div></Section>
+        <Section id="awards" title={relatedSections.awards.label} shaded><EntryList entries={awards} locale={locale} tagControls={tagControls} /></Section>
+        <Section id="selected-programs" title={relatedSections["selected-programs"].label}><EntryList entries={selectedPrograms} locale={locale} tagControls={tagControls} /></Section>
+        <Section id="service" title={relatedSections.service.label} shaded><EntryList entries={service} locale={locale} tagControls={tagControls} /></Section>
 
         <Section id="contact" title="Contact">
           <div className="text-center">
@@ -234,16 +271,24 @@ export default function Portfolio({ locale }: { locale: Locale }) {
       </main>
 
       <footer className="py-12 px-6 bg-white border-t border-gray-100"><div className="max-w-4xl mx-auto text-center"><p className="text-gray-500 font-thin tracking-wide">© 2026 Akira Murakami. All rights reserved.</p></div></footer>
+      <RelatedContentFan activeTag={activeTag} locale={locale} hubRef={hubRef} clearTag={clearTag} />
       <style jsx global>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fadeInUp { animation: fadeInUp 1s ease-out; }
+        @keyframes highlightRelatedTarget {
+          from { outline: 2px solid rgba(75, 85, 99, .45); outline-offset: 5px; }
+          to { outline: 2px solid transparent; outline-offset: 5px; }
+        }
+        [data-related-target] { scroll-margin-top: 6rem; }
+        [data-related-target]:target { animation: highlightRelatedTarget 1.4s ease-out; }
         html { scroll-behavior: smooth; }
         @media (prefers-reduced-motion: reduce) {
           html { scroll-behavior: auto; }
           .animate-fadeInUp { animation: none; }
+          [data-related-target]:target { animation: none; }
         }
       `}</style>
     </div>

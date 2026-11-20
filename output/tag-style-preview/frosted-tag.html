@@ -1,0 +1,161 @@
+<style>
+  #portfolio-frosted-selection {
+    padding: clamp(8px, 3vw, 22px);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #portfolio-frosted-selection * { box-sizing: border-box; }
+  #portfolio-frosted-selection .work-example {
+    color-scheme: light;
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 20px 14px;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: clamp(20px, 5vw, 38px);
+    border: 1px solid #e9e8eb;
+    border-radius: 16px;
+    color: #27272a;
+    background: #f9f8f8;
+    overflow: hidden;
+  }
+  #portfolio-frosted-selection .work-example::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 28% 80% at 34% 102%, rgb(173 152 211 / .53), transparent 100%),
+      radial-gradient(ellipse 29% 58% at 44% 101%, rgb(244 194 179 / .70), transparent 100%),
+      radial-gradient(ellipse 42% 88% at 0% 78%, rgb(167 216 228 / .66), transparent 100%),
+      radial-gradient(ellipse 48% 110% at 100% 4%, rgb(244 217 202 / .62), transparent 100%);
+    content: "";
+  }
+  #portfolio-frosted-selection .work-copy { grid-column: 1 / -1; }
+  #portfolio-frosted-selection .work-section {
+    margin: 0 0 11px;
+    color: #49494e;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .06em;
+  }
+  #portfolio-frosted-selection h2 { margin: 0; font-size: 22px; font-weight: 400; }
+  #portfolio-frosted-selection .work-description {
+    margin: 6px 0 0;
+    color: #414148;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  #portfolio-frosted-selection .tags {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px 3px;
+  }
+  #portfolio-frosted-selection .keyword {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 clamp(7px, 2.2vw, 14px);
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #45454a;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-decoration: underline;
+    text-decoration-color: #76727e;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  #portfolio-frosted-selection .keyword:hover { color: #242429; text-decoration-color: currentColor; }
+  #portfolio-frosted-selection .keyword[aria-pressed="true"] {
+    background-color: rgb(255 255 255 / .64);
+    color: #252429;
+    text-decoration-color: #535258;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+  #portfolio-frosted-selection .clear-tag {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1px;
+    width: 65px;
+    aspect-ratio: 1;
+    padding: 3px;
+    border: 1px solid #303036;
+    border-radius: 50%;
+    background: #303036;
+    color: white;
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.15;
+  }
+  #portfolio-frosted-selection .clear-tag:disabled { border-color: #dedce1; background: rgb(255 255 255 / .64); color: #49494e; }
+  #portfolio-frosted-selection [hidden] { display: none; }
+  #portfolio-frosted-selection button:focus-visible { outline: 2px solid #35333b; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { #portfolio-frosted-selection .keyword { transition: none; } }
+</style>
+<div id="portfolio-frosted-selection" class="viz-dotted-background" lang="ja">
+  <article class="work-example" aria-labelledby="frosted-selection-title">
+    <div class="work-copy">
+      <p class="work-section" lang="en">Works</p>
+      <h2 id="frosted-selection-title" lang="en">AmbiXR</h2>
+      <p class="work-description">曖昧な指示を適応的な視覚表現で明確にするXRオーサリングシステム。</p>
+    </div>
+    <div class="tags" role="group" aria-label="関連タグ">
+      <button class="keyword" type="button" value="AmbiXR" aria-pressed="true">AmbiXR</button>
+      <button class="keyword" type="button" value="XR" aria-pressed="false">XR</button>
+      <button class="keyword" type="button" value="LLM" aria-pressed="false">LLM</button>
+    </div>
+    <button class="clear-tag" type="button" aria-label="AmbiXR の選択を解除">
+      <span data-clear-icon aria-hidden="true">×</span>
+      <span data-keyword aria-live="polite">AmbiXR</span>
+    </button>
+  </article>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('portfolio-frosted-selection');
+  const buttons = [...root.querySelectorAll('.keyword')];
+  const clear = root.querySelector('.clear-tag');
+  const label = clear.querySelector('[data-keyword]');
+  const icon = clear.querySelector('[data-clear-icon]');
+  let selected = 'AmbiXR';
+
+  function render(tag) {
+    selected = tag;
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.value === tag)));
+    label.textContent = tag ?? 'タグ';
+    clear.disabled = tag === null;
+    icon.hidden = tag === null;
+    clear.setAttribute('aria-label', tag ? tag + ' の選択を解除' : 'タグの選択なし');
+  }
+
+  function restore(snapshot) {
+    const tag = snapshot?.modelContent?.tag;
+    if (tag === null || buttons.some(button => button.value === tag)) render(tag);
+  }
+
+  function select(tag) {
+    render(tag);
+    window.openai?.setWidgetState?.({ modelContent: { tag } })?.catch(() => {});
+  }
+
+  buttons.forEach(button => button.addEventListener('click', () => select(button.value)));
+  clear.addEventListener('click', () => {
+    buttons.find(button => button.value === selected)?.focus({ preventScroll: true });
+    select(null);
+  });
+  restore(window.openai?.widgetState);
+  window.addEventListener('openai:set_globals', event => restore(event.detail?.globals?.widgetState));
+})();
+</script>

@@ -1,0 +1,103 @@
+:global(.bg-gray-50) .tag[aria-pressed="false"] {
+  @apply bg-gray-200 hover:bg-gray-300;
+}
+
+.fan {
+  --hub-size: 5.5rem;
+  --fan-reach: 6.375rem;
+  --fan-right: max(clamp(.75rem, 3vw, 1.5rem), env(safe-area-inset-right));
+  --fan-bottom: max(clamp(.75rem, 3vw, 1.5rem), env(safe-area-inset-bottom));
+  position: fixed;
+  inset: auto var(--fan-right) var(--fan-bottom) auto;
+  z-index: 40;
+}
+
+.hub {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .2rem;
+  width: var(--hub-size);
+  aspect-ratio: 1;
+  border: 1px solid #111827;
+  border-radius: 50%;
+  background: #111827;
+  color: white;
+  padding: .6rem;
+  box-shadow: 0 4px 16px rgb(17 24 39 / 14%);
+  font-size: .8125rem;
+  font-weight: 500;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.hub:disabled {
+  border-color: #e5e7eb;
+  background: white;
+  color: #6b7280;
+}
+
+.hub span { overflow-wrap: anywhere; }
+.hub svg { flex: none; }
+.hub:focus-visible, .results a:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+
+.results {
+  position: absolute;
+  right: -.25rem;
+  bottom: 1.5rem;
+  width: max-content;
+  max-height: max(4rem, calc(100dvh - var(--fan-bottom) - 6.5rem));
+  overflow-y: auto;
+  padding: .5rem;
+  scrollbar-width: thin;
+  pointer-events: none;
+}
+
+.results[data-single="true"] { bottom: 5.25rem; }
+
+.results ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .875rem;
+}
+
+.results li {
+  margin-right: calc(var(--fan-offset) * var(--fan-reach));
+  animation: unfold-fan 200ms ease-out var(--fan-delay) both;
+}
+
+.results a {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  width: min(11rem, calc(100vw - var(--fan-right) - var(--fan-reach) - 1.5rem - env(safe-area-inset-left)));
+  min-height: 3rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  background: white;
+  color: #1f2937;
+  padding: .375rem .625rem;
+  box-shadow: 0 2px 6px rgb(17 24 39 / 9%);
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  pointer-events: auto;
+}
+
+.results a:hover { background: #f3f4f6; }
+.results a svg { color: #4b5563; flex: none; }
+.results a small { display: block; color: #4b5563; font-size: .6875rem; }
+
+@keyframes unfold-fan {
+  from { opacity: 0; transform: translate(.625rem, .5rem); }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results li { animation: none; }
+}
