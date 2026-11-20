@@ -365,7 +365,7 @@ export const works: Work[] = [
   {
     id: 1,
     title: "Rhizome",
-    tags: ["Rhizome", "MiTOHOKU2024"],
+    tags: ["Rhizome", "MiTOHOKU2024", "OpenHackU2022"],
     image: "/works/rhizome.png",
     description: {
       ja: "Rhizomeは会話内容をグラフネットワーク形式で自動で要約してくれる会議サポートツールです．",
@@ -391,7 +391,7 @@ export const works: Work[] = [
   {
     id: 3,
     title: "Morbido",
-    tags: ["IdeaCon2021"],
+    tags: ["BizIdeaCon2021"],
     image: "/works/morbido.png",
     description: {
       ja: "Mobidoは導電性繊維を用いたふわふわなセンサーです．",
@@ -444,6 +444,7 @@ export const awards: PortfolioEntry[] = [
   {
     id: "ivrc-2025",
     tags: ["VRSJ2025"],
+    relatedLabel: "IVRC 2025「なんきら☆」",
     title: {
       ja: "Interverse Virtual Reality Challenge (IVRC) 2025「豆|頁：なんかきられてももどるやつ」",
       en: "Interverse Virtual Reality Challenge (IVRC) 2025 — 「豆|頁：なんかきられてももどるやつ」",
@@ -479,7 +480,7 @@ export const awards: PortfolioEntry[] = [
   },
   {
     id: "hack-u-2022",
-    tags: ["Rhizome"],
+    tags: ["Rhizome", "OpenHackU2022"],
     relatedLabel: { ja: "Open Hack U 最優秀賞", en: "Open Hack U Grand Prize" },
     title: { ja: "Open Hack U 2022 Spring ONLINE 最優秀賞", en: "Open Hack U 2022 Spring ONLINE — Grand Prize" },
     date: "2022",
@@ -487,7 +488,7 @@ export const awards: PortfolioEntry[] = [
   },
   {
     id: "business-2021",
-    tags: ["IdeaCon2021"],
+    tags: ["BizIdeaCon2021"],
     title: { ja: "東北大学ビジネスアイデアコンテスト 2021 最優秀賞", en: "Tohoku University Business Idea Contest 2021 — Grand Prize" },
     date: "2021",
     links: [{ href: "https://www.tohoku.ac.jp/japanese/2021/12/press20211222-01-idea.html", label: { ja: "受賞のお知らせ", en: "Award announcement" } }],
@@ -530,6 +531,7 @@ export const selectedPrograms: PortfolioEntry[] = [
   {
     id: "mitohoku-4",
     tags: ["MiTOHOKU2026"],
+    relatedLabel: { ja: "MiTOHOKU 4期採択", en: "MiTOHOKU, 4th cohort" },
     title: {
       ja: "経済産業省 未踏的な地方の若手人材発掘育成支援事業補助金AKATSUKIプロジェクト - MiTOHOKU Program 4期採択",
       en: "Selected for the 4th cohort of the MiTOHOKU Program, METI AKATSUKI Project",
@@ -552,6 +554,7 @@ export const selectedPrograms: PortfolioEntry[] = [
   {
     id: "mitohoku-2",
     tags: ["MiTOHOKU2024"],
+    relatedLabel: { ja: "MiTOHOKU 2期採択", en: "MiTOHOKU, 2nd cohort" },
     title: {
       ja: "経済産業省 未踏的な地方の若手人材発掘育成支援事業補助金AKATSUKIプロジェクト - MiTOHOKU Program 2期採択",
       en: "Selected for the 2nd cohort of the MiTOHOKU Program, METI AKATSUKI Project",
@@ -580,6 +583,7 @@ export const service: PortfolioEntry[] = [
   {
     id: "chi-symposium-2025",
     tags: ["CHI2025"],
+    relatedLabel: { ja: "CHI 2025 シンポジウム学生委員", en: "CHI 2025 Student Committee" },
     title: {
       ja: "市民公開講座 / 横浜市MICE次世代育成事業「CHI 2025 シンポジウム」学生委員",
       en: "CHI 2025 Symposium — Student Committee Member (Public Lecture / Yokohama MICE Next Generation Development Project)",

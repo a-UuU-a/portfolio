@@ -71,7 +71,6 @@ function WorkCard({ work, locale, tagControls }: { work: Work; locale: Locale; t
       <div className="p-6">
         <h3 className="text-lg font-light mb-2">{linkedCover ? <Link href={work.link} target={linkTarget} rel={linkRel}>{work.title}</Link> : work.title}</h3>
         <p className="text-gray-600 font-light text-sm mb-4">{work.description[locale]}</p>
-        <RelatedTags tags={work.tags} className="mb-4" {...tagControls} />
         <div className="flex items-center justify-between">
           <span className="text-xs text-gray-500 font-light">{work.year}</span>
           {internal ? (
@@ -80,6 +79,7 @@ function WorkCard({ work, locale, tagControls }: { work: Work; locale: Locale; t
             <a href={work.link} target="_blank" rel="noopener noreferrer" aria-label={`${copy.viewWork}: ${work.title}`} className="inline-flex items-center gap-2 text-xs text-gray-500 hover:text-gray-900">{work.linkLabel?.[locale]}<ExternalLink size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" /></a>
           )}
         </div>
+        <RelatedTags tags={work.tags} className="mt-3" {...tagControls} />
       </div>
     </div>
   );
@@ -134,11 +134,11 @@ function EntryList({ entries, locale, tagControls }: { entries: PortfolioEntry[]
             </p>
           )}
           <h3 className="text-lg text-gray-800 font-light">{entry.title[locale]}</h3>
-          <RelatedTags tags={entry.tags} className="mt-2" {...tagControls} />
           {entry.funding && <p lang="en" className="mt-2 text-sm text-gray-500">{entry.funding}</p>}
           {entry.details && <ul className="mt-3 space-y-2 list-disc list-outside pl-5">{entry.details.map((detail, index) => <li key={index}>{detail[locale]}</li>)}</ul>}
           {entry.contributors && <p lang={entry.contributorLanguage} className="mt-3 text-sm text-gray-500">{entry.contributors.map((name, index) => <span key={name}>{index > 0 && ", "}{name === "Akira Murakami" || name === "村上 聡" ? <strong className="font-normal">{name}</strong> : name}</span>)}</p>}
           {entry.links && <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">{entry.links.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-blue-600 hover:underline">{link.label[locale]}<ExternalLink size={12} aria-hidden="true" /></a>)}</div>}
+          <RelatedTags tags={entry.tags} className="mt-3" {...tagControls} />
         </li>
       ))}
     </ul>
